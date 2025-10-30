@@ -1,0 +1,509 @@
+{% comment %}
+  FICHIER : blocks/bundle-selector.liquid
+  Créez ce nouveau fichier dans le dossier "blocks" de votre thème
+{% endcomment %}
+
+{%- assign block_settings = block.settings -%}
+
+<div class="product-bundles-wrapper" {{ block.shopify_attributes }}>
+  {% comment %} Bundle Découverte {% endcomment %}
+  {% if product.metafields.custom.bundle_discovery != blank %}
+    <div class="bundle-option">
+      <input 
+        type="radio" 
+        name="product-option-{{ section.id }}" 
+        id="bundle-discovery-{{ section.id }}" 
+        class="bundle-radio"
+        value="bundle"
+      >
+      <label for="bundle-discovery-{{ section.id }}" class="bundle-label">
+        <span class="bundle-icon">🎁</span>
+        <div class="bundle-info">
+          <strong>{{ block_settings.bundle_title }}</strong>
+          <span class="bundle-description">{{ block_settings.bundle_description }}</span>
+        </div>
+      </label>
+    </div>
+
+    <div id="bundle-discovery-products-{{ section.id }}" class="bundle-products hidden">
+      <p class="bundle-instructions">Sélectionnez 2 parfums supplémentaires :</p>
+      <div class="bundle-grid">
+        {% for product_ref in product.metafields.custom.bundle_discovery.value %}
+          <div class="bundle-product-card">
+            <input 
+              type="checkbox" 
+              id="bundle-product-{{ product_ref.id }}-{{ section.id }}" 
+              class="bundle-checkbox"
+              data-product-id="{{ product_ref.id }}"
+              data-variant-id="{{ product_ref.selected_or_first_available_variant.id }}"
+              data-price="{{ product_ref.price }}"
+            >
+            <label for="bundle-product-{{ product_ref.id }}-{{ section.id }}">
+              {% if product_ref.featured_image %}
+                <img src="{{ product_ref.featured_image | img_url: 'small' }}" alt="{{ product_ref.title }}" loading="lazy">
+              {% endif %}
+              <div class="bundle-product-info">
+                <h4>{{ product_ref.title }}</h4>
+                <p class="price">{{ product_ref.price | money }}</p>
+              </div>
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+      <button type="button" class="button button--primary add-bundle-btn" disabled data-section-id="{{ section.id }}">
+        Ajouter le Bundle Découverte
+      </button>
+    </div>
+  {% endif %}
+
+  {% comment %} Pack Voyageur {% endcomment %}
+  {% if product.metafields.custom.travel_pack != blank %}
+    <div class="bundle-option">
+      <input 
+        type="radio" 
+        name="product-option-{{ section.id }}" 
+        id="travel-pack-{{ section.id }}" 
+        class="bundle-radio"
+        value="travel"
+      >
+      <label for="travel-pack-{{ section.id }}" class="bundle-label">
+        <span class="bundle-icon">✈️</span>
+        <div class="bundle-info">
+          <strong>{{ block_settings.travel_title }}</strong>
+          <span class="bundle-description">{{ block_settings.travel_description }}</span>
+        </div>
+      </label>
+    </div>
+
+    <div id="travel-pack-products-{{ section.id }}" class="bundle-products hidden">
+      <div class="travel-pack-list">
+        {% assign total_price = 0 %}
+        {% for product_ref in product.metafields.custom.travel_pack.value %}
+          {% assign total_price = total_price | plus: product_ref.price %}
+          <div class="travel-pack-item">
+            {% if product_ref.featured_image %}
+              <img src="{{ product_ref.featured_image | img_url: 'small' }}" alt="{{ product_ref.title }}" loading="lazy">
+            {% endif %}
+            <div class="travel-pack-info">
+              <h4>{{ product_ref.title }}</h4>
+              <p class="price">{{ product_ref.price | money }}</p>
+            </div>
+            <input 
+              type="hidden" 
+              class="travel-pack-variant"
+              data-variant-id="{{ product_ref.selected_or_first_available_variant.id }}"
+            >
+          </div>
+        {% endfor %}
+      </div>
+      <div class="travel-pack-total">
+        <strong>Total :</strong> {{ total_price | money }}
+      </div>
+      <button type="button" class="button button--primary add-travel-pack-btn" data-section-id="{{ section.id }}">
+        Ajouter le Pack Voyageur
+      </button>
+    </div>
+  {% endif %}
+
+  {% comment %} Option produit seul {% endcomment %}
+  <div class="bundle-option">
+    <input 
+      type="radio" 
+      name="product-option-{{ section.id }}" 
+      id="single-product-{{ section.id }}" 
+      class="bundle-radio"
+      value="single"
+      checked
+    >
+    <label for="single-product-{{ section.id }}" class="bundle-label">
+      <span class="bundle-icon">🔹</span>
+      <div class="bundle-info">
+        <strong>Produit seul</strong>
+        <span class="bundle-description">Acheter uniquement ce produit</span>
+      </div>
+    </label>
+  </div>
+</div>
+
+{% stylesheet %}
+  .product-bundles-wrapper {
+    margin: 20px 0;
+    border-top: 1px solid rgba(var(--color-foreground), 0.08);
+    padding-top: 20px;
+  }
+
+  .bundle-option {
+    margin-bottom: 15px;
+  }
+
+  .bundle-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .bundle-label {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border: 2px solid rgba(var(--color-foreground), 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(var(--color-background), 1);
+  }
+
+  .bundle-label:hover {
+    border-color: rgba(var(--color-foreground), 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .bundle-radio:checked + .bundle-label {
+    border-color: rgba(var(--color-foreground), 0.5);
+    background: rgba(var(--color-foreground), 0.03);
+  }
+
+  .bundle-icon {
+    font-size: 24px;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+
+  .bundle-info {
+    flex: 1;
+  }
+
+  .bundle-info strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .bundle-description {
+    font-size: 13px;
+    color: rgba(var(--color-foreground), 0.65);
+    display: block;
+  }
+
+  .bundle-products {
+    margin: 15px 0;
+    padding: 20px;
+    background: rgba(var(--color-foreground), 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .bundle-products.hidden {
+    display: none;
+  }
+
+  .bundle-instructions {
+    font-weight: 600;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+
+  .bundle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .bundle-grid {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+  }
+
+  .bundle-product-card {
+    position: relative;
+  }
+
+  .bundle-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .bundle-product-card label {
+    display: block;
+    padding: 12px;
+    border: 2px solid rgba(var(--color-foreground), 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: rgba(var(--color-background), 1);
+    text-align: center;
+    height: 100%;
+  }
+
+  .bundle-product-card label:hover {
+    border-color: rgba(var(--color-foreground), 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .bundle-checkbox:checked + label {
+    border-color: rgba(var(--color-foreground), 0.5);
+    background: rgba(var(--color-foreground), 0.03);
+  }
+
+  .bundle-product-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .bundle-product-info h4 {
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .bundle-product-info .price {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(var(--color-foreground), 0.8);
+  }
+
+  .travel-pack-list {
+    margin-bottom: 20px;
+  }
+
+  .travel-pack-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: rgba(var(--color-background), 1);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .travel-pack-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+
+  .travel-pack-info {
+    flex: 1;
+  }
+
+  .travel-pack-info h4 {
+    font-size: 14px;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .travel-pack-info .price {
+    font-size: 13px;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .travel-pack-total {
+    text-align: right;
+    font-size: 18px;
+    padding: 16px;
+    background: rgba(var(--color-background), 1);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .add-bundle-btn,
+  .add-travel-pack-btn {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .add-bundle-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+{% endstylesheet %}
+
+<script>
+  (function() {
+    const sectionId = '{{ section.id }}';
+    const bundleRadios = document.querySelectorAll(`input[name="product-option-${sectionId}"]`);
+    const bundleDiscoveryDiv = document.getElementById(`bundle-discovery-products-${sectionId}`);
+    const travelPackDiv = document.getElementById(`travel-pack-products-${sectionId}`);
+    
+    if (!bundleRadios.length) return;
+
+    // Gérer l'affichage des options
+    bundleRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        if (bundleDiscoveryDiv) bundleDiscoveryDiv.classList.add('hidden');
+        if (travelPackDiv) travelPackDiv.classList.add('hidden');
+
+        if (this.value === 'bundle' && bundleDiscoveryDiv) {
+          bundleDiscoveryDiv.classList.remove('hidden');
+        } else if (this.value === 'travel' && travelPackDiv) {
+          travelPackDiv.classList.remove('hidden');
+        }
+      });
+    });
+
+    // Gérer la sélection des produits bundle découverte
+    const bundleCheckboxes = document.querySelectorAll(`#bundle-discovery-products-${sectionId} .bundle-checkbox`);
+    const addBundleBtn = document.querySelector(`#bundle-discovery-products-${sectionId} .add-bundle-btn`);
+    
+    if (bundleCheckboxes.length > 0 && addBundleBtn) {
+      bundleCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const checkedCount = document.querySelectorAll(`#bundle-discovery-products-${sectionId} .bundle-checkbox:checked`).length;
+          addBundleBtn.disabled = checkedCount !== 2;
+        });
+      });
+
+      // Ajouter le bundle découverte au panier
+      addBundleBtn.addEventListener('click', function() {
+        const checkedBoxes = document.querySelectorAll(`#bundle-discovery-products-${sectionId} .bundle-checkbox:checked`);
+        const items = [];
+        
+        // Ajouter le produit principal
+        const productForm = document.querySelector('form[action*="/cart/add"]');
+        if (productForm) {
+          const mainVariantId = productForm.querySelector('[name="id"]')?.value;
+          if (mainVariantId) {
+            items.push({ id: mainVariantId, quantity: 1 });
+          }
+        }
+
+        // Ajouter les produits sélectionnés
+        checkedBoxes.forEach(box => {
+          items.push({
+            id: box.dataset.variantId,
+            quantity: 1
+          });
+        });
+
+        if (items.length > 0) {
+          addBundleBtn.disabled = true;
+          addBundleBtn.textContent = 'Ajout en cours...';
+          
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({ items: items })
+          })
+          .then(response => response.json())
+          .then(data => {
+            window.location.href = '/cart';
+          })
+          .catch(error => {
+            console.error('Erreur:', error);
+            addBundleBtn.disabled = false;
+            addBundleBtn.textContent = 'Ajouter le Bundle Découverte';
+            alert('Une erreur est survenue. Veuillez réessayer.');
+          });
+        }
+      });
+    }
+
+    // Ajouter le pack voyageur au panier
+    const addTravelPackBtn = document.querySelector(`#travel-pack-products-${sectionId} .add-travel-pack-btn`);
+    
+    if (addTravelPackBtn) {
+      addTravelPackBtn.addEventListener('click', function() {
+        const travelPackVariants = document.querySelectorAll(`#travel-pack-products-${sectionId} .travel-pack-variant`);
+        const items = [];
+
+        // Ajouter le produit principal
+        const productForm = document.querySelector('form[action*="/cart/add"]');
+        if (productForm) {
+          const mainVariantId = productForm.querySelector('[name="id"]')?.value;
+          if (mainVariantId) {
+            items.push({ id: mainVariantId, quantity: 1 });
+          }
+        }
+
+        // Ajouter tous les produits du pack
+        travelPackVariants.forEach(input => {
+          items.push({
+            id: input.dataset.variantId,
+            quantity: 1
+          });
+        });
+
+        if (items.length > 0) {
+          addTravelPackBtn.disabled = true;
+          addTravelPackBtn.textContent = 'Ajout en cours...';
+          
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({ items: items })
+          })
+          .then(response => response.json())
+          .then(data => {
+            window.location.href = '/cart';
+          })
+          .catch(error => {
+            console.error('Erreur:', error);
+            addTravelPackBtn.disabled = false;
+            addTravelPackBtn.textContent = 'Ajouter le Pack Voyageur';
+            alert('Une erreur est survenue. Veuillez réessayer.');
+          });
+        }
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Sélecteur de Bundle",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Bundle Découverte"
+    },
+    {
+      "type": "text",
+      "id": "bundle_title",
+      "label": "Titre",
+      "default": "Bundle Découverte (Pack de 3)"
+    },
+    {
+      "type": "text",
+      "id": "bundle_description",
+      "label": "Description",
+      "default": "Ajoutez 2 autres parfums pour découvrir notre collection"
+    },
+    {
+      "type": "header",
+      "content": "Pack Voyageur"
+    },
+    {
+      "type": "text",
+      "id": "travel_title",
+      "label": "Titre",
+      "default": "Pack Voyageur"
+    },
+    {
+      "type": "text",
+      "id": "travel_description",
+      "label": "Description",
+      "default": "Format pratique pour vos déplacements"
+    }
+  ]
+}
+{% endschema %}

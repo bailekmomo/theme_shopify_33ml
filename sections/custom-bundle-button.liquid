@@ -1,0 +1,153 @@
+{% comment %}
+  Section : Bundle to Cart
+  Objectif : Créer un pack dynamique basé sur le tag principal du produit
+{% endcomment %}
+
+{% assign main_tag = product.tags.first %}
+{% assign collection_handle = main_tag | handle %}
+{% assign collection = collections[collection_handle] %}
+{% assign discount_code = discount_code | default: "PACK10" %}
+{% assign count = count | default: 2 %}
+
+{% if collection and collection.products.size > count %}
+<style>
+  .bundle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+  }
+  .bundle-btn img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+</style>
+
+<button 
+  id="bundle-add-btn"
+  class="bundle-btn"
+  data-count="{{ count }}"
+  data-current-variant="{{ product.selected_or_first_available_variant.id }}"
+  data-products='[
+    {% for p in collection.products %}
+      {% unless p.id == product.id %}
+        {{ p.selected_or_first_available_variant.id }},
+      {% endunless %}
+    {% endfor %}
+  ]'
+  data-discount-code="{{ discount_code }}"
+  style="
+    background-color: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_color }};
+    border: 1px solid {{ section.settings.button_border }};
+    border-radius: {{ section.settings.button_radius }}px;
+  "
+>
+  {% if section.settings.button_icon != blank %}
+    <img src="{{ section.settings.button_icon | image_url: width: 40 }}" alt="Icône du bouton">
+  {% endif %}
+  <span>{{ section.settings.button_text }}</span>
+</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('bundle-add-btn');
+  if (!btn) return;
+
+  btn.addEventListener('click', async function() {
+    btn.disabled = true;
+
+    const discount = btn.getAttribute('data-discount-code');
+    const count = parseInt(btn.getAttribute('data-count'));
+    const currentVariant = btn.getAttribute('data-current-variant');
+    const allVariants = btn.getAttribute('data-products')
+      .replace(/[\[\]\s]/g, '')
+      .split(',')
+      .filter(id => id);
+
+    // Mélange aléatoire
+    const shuffled = allVariants.sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, count);
+
+    // Ajoute le produit actuel
+    selected.unshift(currentVariant);
+
+    try {
+      for (const id of selected) {
+        await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: id, quantity: 1 })
+        });
+      }
+
+      // Redirige vers le panier avec le code promo
+      window.location.href = '/discount/' + encodeURIComponent(discount) + '?redirect=/cart';
+    } catch (err) {
+      console.error('Erreur bundle:', err);
+      alert("Impossible d’ajouter le pack au panier.");
+      btn.disabled = false;
+    }
+  });
+});
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Bouton pack personnalisé",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texte du bouton",
+      "default": "Créer mon pack"
+    },
+    {
+      "type": "image_picker",
+      "id": "button_icon",
+      "label": "Icône du bouton (optionnel)"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Couleur de fond",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Couleur du texte",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border",
+      "label": "Couleur de la bordure",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Arrondi des coins (px)",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bouton Créer mon pack"
+    }
+  ]
+}
+{% endschema %}

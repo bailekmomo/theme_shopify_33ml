@@ -1,1 +1,988 @@
-{"sections":{"main":{"type":"product-information","blocks":{"media-gallery":{"type":"_product-media-gallery","static":true,"settings":{"media_presentation":"grid","media_columns":"two","image_gap":0,"large_first_image":true,"icons_style":"none","slideshow_controls_style":"counter","slideshow_mobile_controls_style":"dots","thumbnail_position":"bottom","thumbnail_width":44,"aspect_ratio":"1","constrain_to_viewport":false,"media_fit":"cover","media_radius":0,"extend_media":true,"zoom":true,"video_loop":false,"hide_variants":false,"padding-block-start":100,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"product-details":{"type":"_product-details","static":true,"settings":{"width":"custom","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","details_position":"flex-start","gap":12,"sticky_details_desktop":true,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":10,"border_opacity":100,"border_radius":0,"padding-block-start":16,"padding-block-end":36,"padding-inline-start":12,"padding-inline-end":12},"blocks":{"text_97Di77":{"type":"text","name":"t:names.text","settings":{"text":"<p>{{ closest.product.metafields.custom.type_de_parfum.value }}<\/p>","width":"fit-content","max_width":"normal","alignment":"left","type_preset":"h6","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"text_tefwj7":{"type":"text","name":"t:names.title","settings":{"text":"<h1>{{ closest.product.title }}<\/h1>","width":"fit-content","max_width":"normal","alignment":"left","type_preset":"h2","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"reviews":{"type":"review","settings":{"stars_style":"shaded","show_number":true,"rating_color":"primary","type_preset":"paragraph","alignment":"left"},"blocks":{}},"price_a7krng":{"type":"price","settings":{"show_sale_price_first":true,"show_installments":true,"show_tax_info":true,"type_preset":"h4","width":"100%","alignment":"left","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","color":"var(--color-foreground)","padding-block-start":4,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"custom_liquid_fAmTLX":{"type":"custom-liquid","name":"t:names.custom_liquid","settings":{"custom_liquid":"{% if product.metafields.custom.intensite %}\n  <div class=\"intensity-linear-container\">\n    <div class=\"intensity-header\">\n      <span class=\"intensity-title\">INTENSITÉ<\/span>\n      <span class=\"intensity-value\">{{ product.metafields.custom.intensite.value }}\/10<\/span>\n    <\/div>\n    \n    <div class=\"intensity-bar-wrapper\">\n      <div class=\"intensity-bar\">\n        <div class=\"intensity-fill\" style=\"--intensity-width: {{ product.metafields.custom.intensite.value | times: 10 }}%\"><\/div>\n      <\/div>\n    <\/div>\n\n    <div class=\"intensity-dots\">\n      {% for i in (1..10) %}\n        <span class=\"dot {% if i <= product.metafields.custom.intensite.value %}dot-filled{% endif %}\"><\/span>\n      {% endfor %}\n    <\/div>\n  <\/div>\n\n  <style>\n    .intensity-linear-container {\n      margin: 25px 0;\n    }\n\n    .intensity-header {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      margin-bottom: 12px;\n      font-size: 13px;\n      font-weight: 600;\n      letter-spacing: 1px;\n    }\n\n    .intensity-title {\n      color: #333;\n    }\n\n    .intensity-value {\n      color: #666;\n      font-weight: 500;\n    }\n\n    .intensity-bar-wrapper {\n      margin-bottom: 10px;\n      overflow: hidden;\n      border-radius: 4px;\n    }\n\n    .intensity-bar {\n      width: 100%;\n      height: 8px;\n      background-color: #e8e8e8;\n      border-radius: 4px;\n      overflow: hidden;\n    }\n\n    .intensity-fill {\n      height: 100%;\n      width: 0%;\n      background: linear-gradient(90deg, #333 0%, #333 100%);\n      border-radius: 4px;\n      animation: growBar 1s ease-out forwards;\n      animation-delay: 0.2s;\n    }\n\n    @keyframes growBar {\n      from {\n        width: 0%;\n      }\n      to {\n        width: var(--intensity-width);\n      }\n    }\n\n    .intensity-dots {\n      display: flex;\n      gap: 6px;\n      justify-content: space-between;\n    }\n\n    .dot {\n      width: 6px;\n      height: 6px;\n      border-radius: 50%;\n      background-color: #d3d3d3;\n      transition: background-color 0.3s ease;\n      opacity: 0;\n      animation: fadeDot 0.5s ease-out forwards;\n    }\n\n    .dot:nth-child(1) { animation-delay: 0.3s; }\n    .dot:nth-child(2) { animation-delay: 0.35s; }\n    .dot:nth-child(3) { animation-delay: 0.4s; }\n    .dot:nth-child(4) { animation-delay: 0.45s; }\n    .dot:nth-child(5) { animation-delay: 0.5s; }\n    .dot:nth-child(6) { animation-delay: 0.55s; }\n    .dot:nth-child(7) { animation-delay: 0.6s; }\n    .dot:nth-child(8) { animation-delay: 0.65s; }\n    .dot:nth-child(9) { animation-delay: 0.7s; }\n    .dot:nth-child(10) { animation-delay: 0.75s; }\n\n    @keyframes fadeDot {\n      from {\n        opacity: 0;\n        transform: scale(0.5);\n      }\n      to {\n        opacity: 1;\n        transform: scale(1);\n      }\n    }\n\n    .dot-filled {\n      background-color: #333;\n    }\n\n    @media (max-width: 768px) {\n      .intensity-header {\n        font-size: 12px;\n      }\n\n      .intensity-bar {\n        height: 6px;\n      }\n\n      .dot {\n        width: 5px;\n        height: 5px;\n      }\n    }\n  <\/style>\n{% endif %}"},"blocks":{}},"custom_liquid_qdkWzq":{"type":"custom-liquid","name":"t:names.custom_liquid","settings":{"custom_liquid":"{% if product.metafields.custom.notes_olfactives %}\n    <div class=\"luxury-notes-container\">\n      <div class=\"notes-header\">\n        <h3 class=\"notes-title\">Profil Olfactif<\/h3>\n        <div class=\"notes-divider\"><\/div>\n      <\/div>\n      \n      <div class=\"notes-luxe-grid\">\n        {% assign notes = product.metafields.custom.notes_olfactives.value | split: ',' %}\n        {% for note in notes %}\n          {% assign note_trimmed = note | strip %}\n          <div class=\"luxe-note-item\">\n            <div class=\"luxe-note-icon\">\n              {% case note_trimmed %}\n                \n                {% when 'Rose' %}\n                  {% render 'icon-note-musc' %}\n               \n  \n                {% when 'Musc' %}\n                  {% render 'icon-note-musc' %}\n                  \n  \n                {% when 'Ambre' %}\n                  {% render 'icon-note-musc' %}\n  \n                {% when 'Vanille' %}\n                  {% render 'icon-note-musc' %}\n  \n                {% when 'Bois' %}\n                  {% render 'icon-note-musc' %}\n                {% when 'Agrumes' %}\n                  {% render 'icon-note-musc' %}\n                  \n  \n                {% when 'Floral' %}\n                  {% render 'icon-note-musc' %}\n                  \n  \n                {% when 'Épicé' %}\n                  {% render 'icon-note-musc' %}\n  \n                {% when 'Océan' %}\n                  {% render 'icon-note-musc' %}\n                  \n  \n              {% endcase %}\n            <\/div>\n            <span class=\"luxe-note-label\">{{ note_trimmed }}<\/span>\n          <\/div>\n        {% endfor %}\n      <\/div>\n    <\/div>\n  \n    <style>\n      .luxury-notes-container {\n        margin: 40px 0;\n        padding: 30px 0;\n        border-top: 1px solid #e5e5e5;\n        border-bottom: 1px solid #e5e5e5;\n      }\n  \n      .notes-header {\n        display: flex;\n        align-items: center;\n        gap: 15px;\n        margin-bottom: 30px;\n      }\n  \n      .notes-title {\n        font-size: 11px;\n        font-weight: 600;\n        letter-spacing: 2.5px;\n        text-transform: uppercase;\n        color: #06193F;\n        margin: 0;\n        white-space: nowrap;\n      }\n  \n      .notes-divider {\n        flex: 1;\n        height: 1px;\n        background: linear-gradient(to right, #06193F, transparent);\n      }\n  \n      .notes-luxe-grid {\n        display: grid;\n        grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));\n        gap: 30px;\n        padding: 0 10px;\n      }\n  \n      .luxe-note-item {\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        text-align: center;\n        opacity: 0;\n        animation: luxeFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n        cursor: pointer;\n        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n      }\n  \n      .luxe-note-item:nth-child(1) { animation-delay: 0.1s; }\n      .luxe-note-item:nth-child(2) { animation-delay: 0.15s; }\n      .luxe-note-item:nth-child(3) { animation-delay: 0.2s; }\n      .luxe-note-item:nth-child(4) { animation-delay: 0.25s; }\n      .luxe-note-item:nth-child(5) { animation-delay: 0.3s; }\n      .luxe-note-item:nth-child(6) { animation-delay: 0.35s; }\n      .luxe-note-item:nth-child(7) { animation-delay: 0.4s; }\n      .luxe-note-item:nth-child(8) { animation-delay: 0.45s; }\n  \n      @keyframes luxeFadeIn {\n        from {\n          opacity: 0;\n          transform: translateY(20px) scale(0.95);\n        }\n        to {\n          opacity: 1;\n          transform: translateY(0) scale(1);\n        }\n      }\n  \n      .luxe-note-icon {\n        width: 70px;\n        height: 70px;\n        margin-bottom: 14px;\n        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        position: relative;\n      }\n  \n      .luxe-note-icon::before {\n        content: '';\n        position: absolute;\n        inset: -8px;\n        border-radius: 50%;\n        background: radial-gradient(circle, rgba(6, 25, 63, 0.05) 0%, transparent 70%);\n        opacity: 0;\n        transition: opacity 0.4s ease;\n      }\n  \n      .luxe-note-item:hover .luxe-note-icon::before {\n        opacity: 1;\n      }\n  \n      .luxe-note-icon svg {\n        width: 100%;\n        height: 100%;\n      }\n  \n      .icon-elegant {\n        fill: #06193F;\n        stroke: #06193F;\n        transition: all 0.4s ease;\n      }\n  \n      .luxe-note-item:hover .luxe-note-icon {\n        transform: scale(1.15) translateY(-3px);\n      }\n  \n      .luxe-note-item:hover .icon-elegant {\n        fill: #0a2559;\n        stroke: #0a2559;\n      }\n  \n      .luxe-note-label {\n        font-size: 12px;\n        font-weight: 500;\n        color: #06193F;\n        letter-spacing: 0.8px;\n        line-height: 1.4;\n        transition: all 0.3s ease;\n        opacity: 0.85;\n      }\n  \n      .luxe-note-item:hover .luxe-note-label {\n        font-weight: 600;\n        opacity: 1;\n        letter-spacing: 1px;\n      }\n  \n      @media (max-width: 1024px) {\n        .notes-luxe-grid {\n          grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));\n          gap: 25px;\n        }\n  \n        .luxe-note-icon {\n          width: 65px;\n          height: 65px;\n        }\n      }\n  \n      @media (max-width: 768px) {\n        .luxury-notes-container {\n          margin: 30px 0;\n          padding: 20px 0;\n        }\n  \n        .notes-header {\n          margin-bottom: 20px;\n        }\n  \n        .notes-title {\n          font-size: 10px;\n          letter-spacing: 2px;\n        }\n  \n        .notes-luxe-grid {\n          grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));\n          gap: 20px;\n          padding: 0;\n        }\n  \n        .luxe-note-icon {\n          width: 60px;\n          height: 60px;\n          margin-bottom: 10px;\n        }\n  \n        .luxe-note-label {\n          font-size: 11px;\n        }\n      }\n  \n      @media (max-width: 480px) {\n        .notes-luxe-grid {\n          grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));\n          gap: 15px;\n        }\n  \n        .luxe-note-icon {\n          width: 55px;\n          height: 55px;\n        }\n  \n        .luxe-note-label {\n          font-size: 10px;\n        }\n      }\n    <\/style>\n  {% endif %}"},"blocks":{}},"accordion_qCeGmN":{"type":"accordion","name":"t:names.accordion","settings":{"icon":"caret","dividers":true,"type_preset":"h6","inherit_color_scheme":true,"color_scheme":"","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"accordion_row_X6YVmQ":{"type":"_accordion-row","settings":{"heading":"Description","open_by_default":true,"icon":"none","width":20},"blocks":{"text_RaraqU":{"type":"text","settings":{"text":"{{ closest.product.description }}","width":"100%","max_width":"normal","alignment":"left","type_preset":"rte","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["text_RaraqU"]},"accordion_row_e6qta3":{"type":"_accordion-row","settings":{"heading":"Conseils d'utilisation","open_by_default":false,"icon":"none","width":20},"blocks":{"text_dUjbJ7":{"type":"text","settings":{"text":"<p>{{ closest.product.metafields.custom.conseils_d_utilisation | metafield_tag }}<\/p>","width":"100%","max_width":"normal","alignment":"left","type_preset":"rte","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["text_dUjbJ7"]},"accordion_row_fGUHk6":{"type":"_accordion-row","settings":{"heading":"Mot du parfumeur","open_by_default":false,"icon":"none","width":20},"blocks":{"text_GyaUWB":{"type":"text","settings":{"text":"<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.{{ closest.product.metafields.custom.mot_du_parfumeur | metafield_tag }}<\/p>","width":"100%","max_width":"normal","alignment":"left","type_preset":"rte","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["text_GyaUWB"]}},"block_order":["accordion_row_X6YVmQ","accordion_row_e6qta3","accordion_row_fGUHk6"]},"text_gXMUag":{"type":"text","name":"Product description","settings":{"text":"","width":"100%","max_width":"normal","alignment":"left","type_preset":"rte","font":"var(--font-primary--family)","font_size":"","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"variant_picker_R3rGDr":{"type":"variant-picker","settings":{"variant_style":"buttons","show_swatches":true,"alignment":"left","padding-block-start":12,"padding-block-end":24,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"buy_buttons_eYQEYi":{"type":"buy-buttons","settings":{"stacking":false,"show_pickup_availability":false,"gift_card_form":true,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"quantity":{"type":"quantity","static":true,"settings":{},"blocks":{}},"add-to-cart":{"type":"add-to-cart","static":true,"settings":{"style_class":"button-secondary"},"blocks":{}},"accelerated-checkout":{"type":"accelerated-checkout","static":true,"settings":{},"blocks":{}}},"block_order":[]},"payment_icons_KEjVtj":{"type":"payment-icons","name":"t:names.payment_icons","settings":{"horizontal_alignment":"flex-start","gap":10,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["text_97Di77","text_tefwj7","reviews","price_a7krng","custom_liquid_fAmTLX","custom_liquid_qdkWzq","accordion_qCeGmN","text_gXMUag","variant_picker_R3rGDr","buy_buttons_eYQEYi","payment_icons_KEjVtj"]}},"settings":{"content_width":"content-full-width","desktop_media_position":"left","equal_columns":false,"limit_details_width":false,"gap":12,"color_scheme":"scheme-1","padding-block-start":0,"padding-block-end":0}},"product_recommendations_iA6pyd":{"type":"product-recommendations","blocks":{"static-product-card":{"type":"_product-card","name":"t:names.product_card","static":true,"settings":{"product_card_gap":0,"inherit_color_scheme":false,"color_scheme":"scheme-2","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"product_card_gallery_8xaiqA":{"type":"_product-card-gallery","name":"t:names.product_card_media","settings":{"image_ratio":"square","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"group_7YP4cy":{"type":"_product-card-group","name":"t:names.group","settings":{"content_direction":"column","vertical_on_mobile":true,"horizontal_alignment":"space-between","vertical_alignment":"flex-start","align_baseline":false,"horizontal_alignment_flex_direction_column":"flex-start","vertical_alignment_flex_direction_column":"space-between","gap":4,"width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"scheme-2","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","link":"","open_in_new_tab":false,"padding-block-start":12,"padding-block-end":12,"padding-inline-start":12,"padding-inline-end":12},"blocks":{"group_3RWczc":{"type":"_product-card-group","name":"t:names.group","settings":{"content_direction":"row","vertical_on_mobile":true,"horizontal_alignment":"space-between","vertical_alignment":"center","align_baseline":false,"horizontal_alignment_flex_direction_column":"flex-start","vertical_alignment_flex_direction_column":"flex-start","gap":8,"width":"fill","custom_width":75,"width_mobile":"fill","custom_width_mobile":75,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","link":"","open_in_new_tab":false,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"product_title_wWUJwp":{"type":"product-title","name":"t:names.product_title","settings":{"width":"fit-content","max_width":"normal","alignment":"left","type_preset":"h5","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"price_NpRMFV":{"type":"price","name":"t:names.product_price","settings":{"show_sale_price_first":true,"show_installments":false,"show_tax_info":false,"type_preset":"paragraph","width":"fit-content","alignment":"right","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","color":"var(--color-foreground)","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["product_title_wWUJwp","price_NpRMFV"]},"group_HTthnM":{"type":"_product-card-group","name":"t:names.group","settings":{"content_direction":"column","vertical_on_mobile":true,"horizontal_alignment":"flex-start","vertical_alignment":"center","align_baseline":false,"horizontal_alignment_flex_direction_column":"flex-start","vertical_alignment_flex_direction_column":"flex-start","gap":12,"width":"fill","custom_width":100,"width_mobile":"custom","custom_width_mobile":25,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","link":"","open_in_new_tab":false,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"text_Dj8eVT":{"type":"text","name":"t:names.text","settings":{"text":"<p>{{ closest.product.metafields.descriptors.subtitle.value }}<\/p>","width":"100%","max_width":"normal","alignment":"left","type_preset":"custom","font":"var(--font-primary--family)","font_size":"var(--font-size--body-md)","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["text_Dj8eVT"]}},"block_order":["group_3RWczc","group_HTthnM"]}},"block_order":["product_card_gallery_8xaiqA","group_7YP4cy"]}},"disabled":true,"name":"t:names.product_recommendations","settings":{"product":"{{ closest.product }}","recommendation_type":"related","layout_type":"grid","carousel_on_mobile":false,"max_products":6,"columns":3,"mobile_columns":"1","columns_gap":1,"rows_gap":2,"icons_style":"arrow","icons_shape":"none","section_width":"full-width","gap":0,"color_scheme":"scheme-1","padding-block-start":1,"padding-block-end":1}},"section_eybFDH":{"type":"section","blocks":{"group_6d4qni":{"type":"group","name":"t:names.column","settings":{"content_direction":"column","vertical_on_mobile":true,"horizontal_alignment":"flex-start","vertical_alignment":"center","align_baseline":false,"horizontal_alignment_flex_direction_column":"flex-start","vertical_alignment_flex_direction_column":"flex-start","gap":8,"width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","link":"","open_in_new_tab":false,"placeholder":"","padding-block-start":10,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"image_FBGpQk":{"type":"image","name":"t:names.image","settings":{"image":"shopify:\/\/shop_images\/Gemini_Generated_Image_ou3a8eou3a8eou3a.png","link":"","image_ratio":"adapt","width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"text_TxcacM":{"type":"text","name":"t:names.heading","settings":{"text":"<h2>EAU DE ROSE<\/h2>","width":"100%","max_width":"normal","alignment":"center","type_preset":"h4","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"text_iggka3":{"type":"text","name":"t:names.description","settings":{"text":"<p>We create with intention. Our products solve real problems with clean design and honest materials.<\/p>","width":"100%","max_width":"normal","alignment":"center","type_preset":"rte","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["image_FBGpQk","text_TxcacM","text_iggka3"]},"group_xWcKeL":{"type":"group","name":"t:names.column","settings":{"content_direction":"column","vertical_on_mobile":true,"horizontal_alignment":"flex-start","vertical_alignment":"center","align_baseline":false,"horizontal_alignment_flex_direction_column":"flex-start","vertical_alignment_flex_direction_column":"flex-start","gap":8,"width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","link":"","open_in_new_tab":false,"placeholder":"","padding-block-start":10,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"image_h3B4FB":{"type":"image","name":"t:names.image","settings":{"image":"shopify:\/\/shop_images\/Gemini_Generated_Image_iak2qmiak2qmiak2.png","link":"","image_ratio":"adapt","width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"text_UhNYg8":{"type":"text","name":"t:names.heading","settings":{"text":"<h2>Quality first<\/h2>","width":"100%","max_width":"normal","alignment":"center","type_preset":"h4","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"text_FweNyU":{"type":"text","name":"t:names.description","settings":{"text":"<p>We obsess over the details and strive to deliver the best products at the best prices, every time.<\/p>","width":"100%","max_width":"normal","alignment":"center","type_preset":"rte","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["image_h3B4FB","text_UhNYg8","text_FweNyU"]}},"block_order":["group_6d4qni","group_xWcKeL"],"name":"t:names.multicolumn","settings":{"content_direction":"row","vertical_on_mobile":true,"horizontal_alignment":"center","vertical_alignment":"flex-start","align_baseline":false,"horizontal_alignment_flex_direction_column":"flex-start","vertical_alignment_flex_direction_column":"center","gap":20,"section_width":"full-width","section_height":"","section_height_custom":50,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","padding-block-start":48,"padding-block-end":48}}},"order":["main","product_recommendations_iA6pyd","section_eybFDH"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product-information",
+      "blocks": {
+        "media-gallery": {
+          "type": "_product-media-gallery",
+          "static": true,
+          "settings": {
+            "media_presentation": "grid",
+            "media_columns": "two",
+            "image_gap": 0,
+            "large_first_image": true,
+            "icons_style": "none",
+            "slideshow_controls_style": "counter",
+            "slideshow_mobile_controls_style": "dots",
+            "thumbnail_position": "bottom",
+            "thumbnail_width": 44,
+            "aspect_ratio": "1",
+            "constrain_to_viewport": false,
+            "media_fit": "cover",
+            "media_radius": 0,
+            "extend_media": true,
+            "zoom": true,
+            "video_loop": false,
+            "hide_variants": false,
+            "padding-block-start": 100,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "product-details": {
+          "type": "_product-details",
+          "static": true,
+          "settings": {
+            "width": "custom",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "details_position": "flex-start",
+            "gap": 12,
+            "sticky_details_desktop": true,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 10,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 16,
+            "padding-block-end": 36,
+            "padding-inline-start": 12,
+            "padding-inline-end": 12
+          },
+          "blocks": {
+            "text_97Di77": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>{{ closest.product.metafields.custom.type_de_parfum.value }}</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h6",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_tefwj7": {
+              "type": "text",
+              "name": "t:names.title",
+              "settings": {
+                "text": "<h1>{{ closest.product.title }}</h1>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h2",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "reviews": {
+              "type": "review",
+              "settings": {
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
+            "price_a7krng": {
+              "type": "price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": true,
+                "show_tax_info": true,
+                "type_preset": "h4",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "custom_liquid_fAmTLX": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": "{% if product.metafields.custom.intensite %}\n  <div class=\"intensity-linear-container\">\n    <div class=\"intensity-header\">\n      <span class=\"intensity-title\">INTENSITÉ</span>\n      <span class=\"intensity-value\">{{ product.metafields.custom.intensite.value }}/10</span>\n    </div>\n    \n    <div class=\"intensity-bar-wrapper\">\n      <div class=\"intensity-bar\">\n        <div class=\"intensity-fill\" style=\"--intensity-width: {{ product.metafields.custom.intensite.value | times: 10 }}%\"></div>\n      </div>\n    </div>\n\n    <div class=\"intensity-dots\">\n      {% for i in (1..10) %}\n        <span class=\"dot {% if i <= product.metafields.custom.intensite.value %}dot-filled{% endif %}\"></span>\n      {% endfor %}\n    </div>\n  </div>\n\n  <style>\n    .intensity-linear-container {\n      margin: 25px 0;\n    }\n\n    .intensity-header {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      margin-bottom: 12px;\n      font-size: 13px;\n      font-weight: 600;\n      letter-spacing: 1px;\n    }\n\n    .intensity-title {\n      color: #333;\n    }\n\n    .intensity-value {\n      color: #666;\n      font-weight: 500;\n    }\n\n    .intensity-bar-wrapper {\n      margin-bottom: 10px;\n      overflow: hidden;\n      border-radius: 4px;\n    }\n\n    .intensity-bar {\n      width: 100%;\n      height: 8px;\n      background-color: #e8e8e8;\n      border-radius: 4px;\n      overflow: hidden;\n    }\n\n    .intensity-fill {\n      height: 100%;\n      width: 0%;\n      background: linear-gradient(90deg, #333 0%, #333 100%);\n      border-radius: 4px;\n      animation: growBar 1s ease-out forwards;\n      animation-delay: 0.2s;\n    }\n\n    @keyframes growBar {\n      from {\n        width: 0%;\n      }\n      to {\n        width: var(--intensity-width);\n      }\n    }\n\n    .intensity-dots {\n      display: flex;\n      gap: 6px;\n      justify-content: space-between;\n    }\n\n    .dot {\n      width: 6px;\n      height: 6px;\n      border-radius: 50%;\n      background-color: #d3d3d3;\n      transition: background-color 0.3s ease;\n      opacity: 0;\n      animation: fadeDot 0.5s ease-out forwards;\n    }\n\n    .dot:nth-child(1) { animation-delay: 0.3s; }\n    .dot:nth-child(2) { animation-delay: 0.35s; }\n    .dot:nth-child(3) { animation-delay: 0.4s; }\n    .dot:nth-child(4) { animation-delay: 0.45s; }\n    .dot:nth-child(5) { animation-delay: 0.5s; }\n    .dot:nth-child(6) { animation-delay: 0.55s; }\n    .dot:nth-child(7) { animation-delay: 0.6s; }\n    .dot:nth-child(8) { animation-delay: 0.65s; }\n    .dot:nth-child(9) { animation-delay: 0.7s; }\n    .dot:nth-child(10) { animation-delay: 0.75s; }\n\n    @keyframes fadeDot {\n      from {\n        opacity: 0;\n        transform: scale(0.5);\n      }\n      to {\n        opacity: 1;\n        transform: scale(1);\n      }\n    }\n\n    .dot-filled {\n      background-color: #333;\n    }\n\n    @media (max-width: 768px) {\n      .intensity-header {\n        font-size: 12px;\n      }\n\n      .intensity-bar {\n        height: 6px;\n      }\n\n      .dot {\n        width: 5px;\n        height: 5px;\n      }\n    }\n  </style>\n{% endif %}"
+              },
+              "blocks": {}
+            },
+            "custom_liquid_qdkWzq": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": "{% if product.metafields.custom.notes_olfactives %}\n    <div class=\"luxury-notes-container\">\n      <div class=\"notes-header\">\n        <h3 class=\"notes-title\">Profil Olfactif</h3>\n        <div class=\"notes-divider\"></div>\n      </div>\n      \n      <div class=\"notes-luxe-grid\">\n        {% assign notes = product.metafields.custom.notes_olfactives.value | split: ',' %}\n        {% for note in notes %}\n          {% assign note_trimmed = note | strip %}\n          <div class=\"luxe-note-item\">\n            <div class=\"luxe-note-icon\">\n              {% case note_trimmed %}\n                \n                {% when 'Rose' %}\n                  {% render 'icon-note-rose' %}\n               \n  \n                {% when 'Musc' %}\n                  {% render 'icon-note-musc' %}\n                  \n  \n                {% when 'Ambre' %}\n                  {% render 'icon-note-ambre' %}\n  \n                {% when 'Vanille' %}\n                  {% render 'icon-note-vanille' %}\n  \n                {% when 'Bois' %}\n                  {% render 'icon-note-bois' %}\n                {% when 'Agrumes' %}\n                  {% render 'icon-note-agrumes' %}\n                  \n  \n                {% when 'Floral' %}\n                  {% render 'icon-note-floral' %}\n                  \n  \n                {% when 'Épicé' %}\n                  {% render 'icon-note-epice' %}\n  \n                {% when 'Océan' %}\n                  {% render 'icon-note-ocean' %}\n                  \n  \n              {% endcase %}\n            </div>\n            <span class=\"luxe-note-label\">{{ note_trimmed }}</span>\n          </div>\n        {% endfor %}\n      </div>\n    </div>\n  \n    <style>\n      .luxury-notes-container {\n        margin: 40px 0;\n        padding: 30px 0;\n        border-top: 1px solid #e5e5e5;\n        border-bottom: 1px solid #e5e5e5;\n      }\n  \n      .notes-header {\n        display: flex;\n        align-items: center;\n        gap: 15px;\n        margin-bottom: 30px;\n      }\n  \n      .notes-title {\n        font-size: 11px;\n        font-weight: 600;\n        letter-spacing: 2.5px;\n        text-transform: uppercase;\n        color: #06193F;\n        margin: 0;\n        white-space: nowrap;\n      }\n  \n      .notes-divider {\n        flex: 1;\n        height: 1px;\n        background: linear-gradient(to right, #06193F, transparent);\n      }\n  \n      .notes-luxe-grid {\n        display: grid;\n        grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));\n        gap: 30px;\n        padding: 0 10px;\n      }\n  \n      .luxe-note-item {\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        text-align: center;\n        opacity: 0;\n        animation: luxeFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n        cursor: pointer;\n        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n      }\n  \n      .luxe-note-item:nth-child(1) { animation-delay: 0.1s; }\n      .luxe-note-item:nth-child(2) { animation-delay: 0.15s; }\n      .luxe-note-item:nth-child(3) { animation-delay: 0.2s; }\n      .luxe-note-item:nth-child(4) { animation-delay: 0.25s; }\n      .luxe-note-item:nth-child(5) { animation-delay: 0.3s; }\n      .luxe-note-item:nth-child(6) { animation-delay: 0.35s; }\n      .luxe-note-item:nth-child(7) { animation-delay: 0.4s; }\n      .luxe-note-item:nth-child(8) { animation-delay: 0.45s; }\n  \n      @keyframes luxeFadeIn {\n        from {\n          opacity: 0;\n          transform: translateY(20px) scale(0.95);\n        }\n        to {\n          opacity: 1;\n          transform: translateY(0) scale(1);\n        }\n      }\n  \n      .luxe-note-icon {\n        width: 70px;\n        height: 70px;\n        margin-bottom: 14px;\n        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        position: relative;\n      }\n  \n      .luxe-note-icon::before {\n        content: '';\n        position: absolute;\n        inset: -8px;\n        border-radius: 50%;\n        background: radial-gradient(circle, rgba(6, 25, 63, 0.05) 0%, transparent 70%);\n        opacity: 0;\n        transition: opacity 0.4s ease;\n      }\n  \n      .luxe-note-item:hover .luxe-note-icon::before {\n        opacity: 1;\n      }\n  \n      .luxe-note-icon svg {\n        width: 100%;\n        height: 100%;\n      }\n  \n      .icon-elegant {\n        fill: #06193F;\n        stroke: #06193F;\n        transition: all 0.4s ease;\n      }\n  \n      .luxe-note-item:hover .luxe-note-icon {\n        transform: scale(1.15) translateY(-3px);\n      }\n  \n      .luxe-note-item:hover .icon-elegant {\n        fill: #0a2559;\n        stroke: #0a2559;\n      }\n  \n      .luxe-note-label {\n        font-size: 12px;\n        font-weight: 500;\n        color: #06193F;\n        letter-spacing: 0.8px;\n        line-height: 1.4;\n        transition: all 0.3s ease;\n        opacity: 0.85;\n      }\n  \n      .luxe-note-item:hover .luxe-note-label {\n        font-weight: 600;\n        opacity: 1;\n        letter-spacing: 1px;\n      }\n  \n      @media (max-width: 1024px) {\n        .notes-luxe-grid {\n          grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));\n          gap: 25px;\n        }\n  \n        .luxe-note-icon {\n          width: 65px;\n          height: 65px;\n        }\n      }\n  \n      @media (max-width: 768px) {\n        .luxury-notes-container {\n          margin: 30px 0;\n          padding: 20px 0;\n        }\n  \n        .notes-header {\n          margin-bottom: 20px;\n        }\n  \n        .notes-title {\n          font-size: 10px;\n          letter-spacing: 2px;\n        }\n  \n        .notes-luxe-grid {\n          grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));\n          gap: 20px;\n          padding: 0;\n        }\n  \n        .luxe-note-icon {\n          width: 60px;\n          height: 60px;\n          margin-bottom: 10px;\n        }\n  \n        .luxe-note-label {\n          font-size: 11px;\n        }\n      }\n  \n      @media (max-width: 480px) {\n        .notes-luxe-grid {\n          grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));\n          gap: 15px;\n        }\n  \n        .luxe-note-icon {\n          width: 55px;\n          height: 55px;\n        }\n  \n        .luxe-note-label {\n          font-size: 10px;\n        }\n      }\n    </style>\n  {% endif %}"
+              },
+              "blocks": {}
+            },
+            "accordion_qCeGmN": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "caret",
+                "dividers": true,
+                "type_preset": "h6",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_X6YVmQ": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Description",
+                    "open_by_default": true,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_RaraqU": {
+                      "type": "text",
+                      "settings": {
+                        "text": "{{ closest.product.description }}",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_RaraqU"
+                  ]
+                },
+                "accordion_row_e6qta3": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Conseils d'utilisation",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_dUjbJ7": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>{{ closest.product.metafields.custom.conseils_d_utilisation | metafield_tag }}</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_dUjbJ7"
+                  ]
+                },
+                "accordion_row_fGUHk6": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Mot du parfumeur",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_GyaUWB": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.{{ closest.product.metafields.custom.mot_du_parfumeur | metafield_tag }}</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_GyaUWB"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_X6YVmQ",
+                "accordion_row_e6qta3",
+                "accordion_row_fGUHk6"
+              ]
+            },
+            "text_gXMUag": {
+              "type": "text",
+              "name": "Product description",
+              "settings": {
+                "text": "",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-primary--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "variant_picker_R3rGDr": {
+              "type": "variant-picker",
+              "settings": {
+                "variant_style": "buttons",
+                "show_swatches": true,
+                "alignment": "left",
+                "padding-block-start": 12,
+                "padding-block-end": 24,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "buy_buttons_eYQEYi": {
+              "type": "buy-buttons",
+              "settings": {
+                "stacking": false,
+                "show_pickup_availability": false,
+                "gift_card_form": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
+                  "settings": {
+                    "style_class": "button-secondary"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
+            },
+            "payment_icons_KEjVtj": {
+              "type": "payment-icons",
+              "name": "t:names.payment_icons",
+              "settings": {
+                "horizontal_alignment": "flex-start",
+                "gap": 10,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_97Di77",
+            "text_tefwj7",
+            "reviews",
+            "price_a7krng",
+            "custom_liquid_fAmTLX",
+            "custom_liquid_qdkWzq",
+            "accordion_qCeGmN",
+            "text_gXMUag",
+            "variant_picker_R3rGDr",
+            "buy_buttons_eYQEYi",
+            "payment_icons_KEjVtj"
+          ]
+        }
+      },
+      "settings": {
+        "content_width": "content-full-width",
+        "desktop_media_position": "left",
+        "equal_columns": false,
+        "limit_details_width": false,
+        "gap": 12,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "product_recommendations_iA6pyd": {
+      "type": "product-recommendations",
+      "blocks": {
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 0,
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-2",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_8xaiqA": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "square",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "group_7YP4cy": {
+              "type": "_product-card-group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "space-between",
+                "vertical_alignment": "flex-start",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "space-between",
+                "gap": 4,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "scheme-2",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "padding-block-start": 12,
+                "padding-block-end": 12,
+                "padding-inline-start": 12,
+                "padding-inline-end": 12
+              },
+              "blocks": {
+                "group_3RWczc": {
+                  "type": "_product-card-group",
+                  "name": "t:names.group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "space-between",
+                    "vertical_alignment": "center",
+                    "align_baseline": false,
+                    "horizontal_alignment_flex_direction_column": "flex-start",
+                    "vertical_alignment_flex_direction_column": "flex-start",
+                    "gap": 8,
+                    "width": "fill",
+                    "custom_width": 75,
+                    "width_mobile": "fill",
+                    "custom_width_mobile": 75,
+                    "height": "fit",
+                    "custom_height": 100,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "background_media": "none",
+                    "video_position": "cover",
+                    "background_image_position": "cover",
+                    "border": "none",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 0,
+                    "toggle_overlay": false,
+                    "overlay_color": "#00000026",
+                    "overlay_style": "solid",
+                    "gradient_direction": "to top",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {
+                    "product_title_wWUJwp": {
+                      "type": "product-title",
+                      "name": "t:names.product_title",
+                      "settings": {
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "h5",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    },
+                    "price_NpRMFV": {
+                      "type": "price",
+                      "name": "t:names.product_price",
+                      "settings": {
+                        "show_sale_price_first": true,
+                        "show_installments": false,
+                        "show_tax_info": false,
+                        "type_preset": "paragraph",
+                        "width": "fit-content",
+                        "alignment": "right",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "color": "var(--color-foreground)",
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "product_title_wWUJwp",
+                    "price_NpRMFV"
+                  ]
+                },
+                "group_HTthnM": {
+                  "type": "_product-card-group",
+                  "name": "t:names.group",
+                  "settings": {
+                    "content_direction": "column",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "align_baseline": false,
+                    "horizontal_alignment_flex_direction_column": "flex-start",
+                    "vertical_alignment_flex_direction_column": "flex-start",
+                    "gap": 12,
+                    "width": "fill",
+                    "custom_width": 100,
+                    "width_mobile": "custom",
+                    "custom_width_mobile": 25,
+                    "height": "fit",
+                    "custom_height": 100,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "background_media": "none",
+                    "video_position": "cover",
+                    "background_image_position": "cover",
+                    "border": "none",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 0,
+                    "toggle_overlay": false,
+                    "overlay_color": "#00000026",
+                    "overlay_style": "solid",
+                    "gradient_direction": "to top",
+                    "link": "",
+                    "open_in_new_tab": false,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {
+                    "text_Dj8eVT": {
+                      "type": "text",
+                      "name": "t:names.text",
+                      "settings": {
+                        "text": "<p>{{ closest.product.metafields.descriptors.subtitle.value }}</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "custom",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "var(--font-size--body-md)",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_Dj8eVT"
+                  ]
+                }
+              },
+              "block_order": [
+                "group_3RWczc",
+                "group_HTthnM"
+              ]
+            }
+          },
+          "block_order": [
+            "product_card_gallery_8xaiqA",
+            "group_7YP4cy"
+          ]
+        }
+      },
+      "disabled": true,
+      "name": "t:names.product_recommendations",
+      "settings": {
+        "product": "{{ closest.product }}",
+        "recommendation_type": "related",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 6,
+        "columns": 3,
+        "mobile_columns": "1",
+        "columns_gap": 1,
+        "rows_gap": 2,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "full-width",
+        "gap": 0,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 1,
+        "padding-block-end": 1
+      }
+    },
+    "section_eybFDH": {
+      "type": "section",
+      "blocks": {
+        "group_6d4qni": {
+          "type": "group",
+          "name": "t:names.column",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 8,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 10,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "image_FBGpQk": {
+              "type": "image",
+              "name": "t:names.image",
+              "settings": {
+                "image": "shopify://shop_images/Gemini_Generated_Image_ou3a8eou3a8eou3a.png",
+                "link": "",
+                "image_ratio": "adapt",
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_TxcacM": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2>EAU DE ROSE</h2>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_iggka3": {
+              "type": "text",
+              "name": "t:names.description",
+              "settings": {
+                "text": "<p>We create with intention. Our products solve real problems with clean design and honest materials.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_FBGpQk",
+            "text_TxcacM",
+            "text_iggka3"
+          ]
+        },
+        "group_xWcKeL": {
+          "type": "group",
+          "name": "t:names.column",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 8,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 10,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "image_h3B4FB": {
+              "type": "image",
+              "name": "t:names.image",
+              "settings": {
+                "image": "shopify://shop_images/Gemini_Generated_Image_iak2qmiak2qmiak2.png",
+                "link": "",
+                "image_ratio": "adapt",
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_UhNYg8": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2>Quality first</h2>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_FweNyU": {
+              "type": "text",
+              "name": "t:names.description",
+              "settings": {
+                "text": "<p>We obsess over the details and strive to deliver the best products at the best prices, every time.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_h3B4FB",
+            "text_UhNYg8",
+            "text_FweNyU"
+          ]
+        }
+      },
+      "block_order": [
+        "group_6d4qni",
+        "group_xWcKeL"
+      ],
+      "name": "t:names.multicolumn",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "center",
+        "vertical_alignment": "flex-start",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 20,
+        "section_width": "full-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product_recommendations_iA6pyd",
+    "section_eybFDH"
+  ]
+}

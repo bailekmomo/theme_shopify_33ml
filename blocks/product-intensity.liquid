@@ -1,0 +1,198 @@
+
+{%- if product.metafields.custom.intensite -%}
+  <div 
+    class="intensity-linear-container spacing-style"
+    style="{% render 'spacing-style', settings: block.settings %}"
+    {{ block.shopify_attributes }}
+  >
+    <div class="intensity-header">
+      <span class="intensity-title">INTENSITÉ</span>
+      <span class="intensity-value">{{ product.metafields.custom.intensite.value }}/10</span>
+    </div>
+    
+    <div class="intensity-bar-wrapper">
+      <div class="intensity-bar">
+        <div class="intensity-fill" style="--intensity-width: {{ product.metafields.custom.intensite.value | times: 10 }}%"></div>
+      </div>
+    </div>
+    
+    <div class="intensity-dots">
+      {% for i in (1..10) %}
+        <span class="dot {% if i <= product.metafields.custom.intensite.value %}dot-filled{% endif %}"></span>
+      {% endfor %}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .intensity-linear-container {
+    margin: 25px 0;
+  }
+  
+  .intensity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .intensity-title {
+    color: #333;
+  }
+  
+  .intensity-value {
+    color: #666;
+    font-weight: 500;
+  }
+  
+  .intensity-bar-wrapper {
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  
+  .intensity-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #e8e8e8;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .intensity-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #333 0%, #333 100%);
+    border-radius: 4px;
+    animation: growBar 1s ease-out forwards;
+    animation-delay: 0.2s;
+  }
+  
+  @keyframes growBar {
+    from {
+      width: 0%;
+    }
+    to {
+      width: var(--intensity-width);
+    }
+  }
+  
+  .intensity-dots {
+    display: flex;
+    gap: 6px;
+    justify-content: space-between;
+  }
+  
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #d3d3d3;
+    transition: background-color 0.3s ease;
+    opacity: 0;
+    animation: fadeDot 0.5s ease-out forwards;
+  }
+  
+  .dot:nth-child(1) { animation-delay: 0.3s; }
+  .dot:nth-child(2) { animation-delay: 0.35s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  .dot:nth-child(4) { animation-delay: 0.45s; }
+  .dot:nth-child(5) { animation-delay: 0.5s; }
+  .dot:nth-child(6) { animation-delay: 0.55s; }
+  .dot:nth-child(7) { animation-delay: 0.6s; }
+  .dot:nth-child(8) { animation-delay: 0.65s; }
+  .dot:nth-child(9) { animation-delay: 0.7s; }
+  .dot:nth-child(10) { animation-delay: 0.75s; }
+  
+  @keyframes fadeDot {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .dot-filled {
+    background-color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .intensity-header {
+      font-size: 12px;
+    }
+    
+    .intensity-bar {
+      height: 6px;
+    }
+    
+    .dot {
+      width: 5px;
+      height: 5px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Intensité",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Haut",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bas",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Gauche",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Droite",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Intensité",
+      "category": "Produit"
+    }
+  ]
+}
+{% endschema %}
+

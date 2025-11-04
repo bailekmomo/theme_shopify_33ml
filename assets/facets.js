@@ -230,6 +230,14 @@ function filterProductsByCustomMetafields() {
       return;
     }
 
+    // If no filters are active, show all products
+    if (!intensityMax && activeOlfactiveNotes.length === 0) {
+      if (item instanceof HTMLElement) {
+        item.style.display = '';
+      }
+      return;
+    }
+
     let shouldShow = true;
 
     // Check intensity filter (maximum value)
@@ -369,20 +377,46 @@ FacetInputsComponent.prototype.updateFilters = function () {
 
 // Register custom filter handlers
 document.addEventListener('DOMContentLoaded', () => {
-  // Handle custom filter inputs (including slider)
-  document.addEventListener('change', (event) => {
-    if (event.target instanceof HTMLInputElement && event.target.classList.contains('custom-filter-input')) {
-      const facetInputs = event.target.closest('facet-inputs-component');
-      if (facetInputs instanceof HTMLElement) {
-        const filterType = facetInputs.dataset.filterType;
-        if (filterType === 'intensity' || filterType === 'olfactive_notes') {
+  // Handle custom filter inputs (including slider and checkboxes)
+  /**
+   * @param {Event} event - The change event
+   */
+  const handleCustomFilterChange = (event) => {
+    if (!(event.target instanceof HTMLInputElement)) return;
+    
+    const facetInputs = event.target.closest('facet-inputs-component');
+    
+    if (facetInputs instanceof HTMLElement) {
+      const filterType = facetInputs.dataset.filterType;
+      
+      // Handle custom filters (intensity or olfactive notes)
+      if (filterType === 'intensity' || filterType === 'olfactive_notes') {
+        // Check if it's a custom filter input
+        const isCustomFilterInput = event.target.classList.contains('custom-filter-input');
+        const isOlfactiveNoteCheckbox = filterType === 'olfactive_notes' && 
+                                        event.target.type === 'checkbox' && 
+                                        event.target.name === 'filter.olfactive_note';
+        
+        if (isCustomFilterInput || isOlfactiveNoteCheckbox) {
+          // Stop propagation to prevent default facet handling
+          event.stopPropagation();
+          
+          // Update URL and filter products
           updateCustomFilterURL(filterType);
           filterProductsByCustomMetafields();
           updateCustomFacetStatus(facetInputs);
+          
+          return false;
         }
       }
     }
-  });
+  };
+
+  // Listen to change events with capture to intercept early
+  document.addEventListener('change', handleCustomFilterChange, true);
+  
+  // Also listen without capture as a fallback
+  document.addEventListener('change', handleCustomFilterChange);
 
   // Handle slider input for real-time updates
   document.addEventListener('input', (event) => {

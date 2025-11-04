@@ -1,0 +1,160 @@
+{%- doc -%}
+  Renders a custom olfactive notes filter.
+
+  @param {string} filter_style - The filter style ('horizontal' | 'vertical')
+  @param {number} sectionId - The section ID
+  @param {boolean} [should_render_clear] - Whether to render the clear button
+{%- enddoc -%}
+
+{%- liquid
+  assign olfactive_notes = 'Rose,Musc,Ambre,Vanille,Bois,Agrumes,Floral,Épicé,Océan' | split: ','
+  assign active_notes_string = ''
+  assign url_params = request.url | split: '?' | last | split: '&'
+  for param in url_params
+    if param contains 'filter.olfactive_note='
+      assign note_value = param | split: '=' | last | url_decode
+      if active_notes_string == ''
+        assign active_notes_string = note_value
+      else
+        assign active_notes_string = active_notes_string | append: ',' | append: note_value
+      endif
+    endif
+  endfor
+  assign active_notes = active_notes_string | split: ','
+-%}
+
+<accordion-custom
+  class="facets__item custom-metafield-filter"
+  {% if filter_style == 'horizontal' %}
+    data-disable-animation-on-desktop="true"
+    data-close-with-escape="true"
+  {% endif %}
+  open-by-default-on-mobile
+  {% if filter_style == 'vertical' %}
+    open
+    open-by-default-on-desktop
+  {% endif %}
+  data-filter-param-name="olfactive_notes"
+>
+  <details
+    id="Facet-Details-{{ sectionId }}-olfactive-notes"
+    class="facets__panel"
+    {% if filter_style == 'horizontal' %}
+      data-auto-close-details="desktop"
+    {% endif %}
+  >
+    <summary class="facets__summary">
+      <span class="facets__label">Notes Olfactives</span>
+
+      <div class="facets__status-wrapper">
+        <facet-status-component
+          class="facets__status"
+          facet-type="list"
+          data-filter-style="{{ filter_style }}"
+        >
+          <span
+            {% if filter_style == 'horizontal' %}
+              {% if active_notes.size > 1 %}
+                class="bubble facets__bubble"
+              {% endif %}
+            {% else %}
+              {% if active_notes.size > 0 %}
+                class="bubble facets__bubble"
+              {% endif %}
+            {% endif %}
+            hide-when-empty
+            ref="facetStatus"
+          >
+            {%- liquid
+              if filter_style == 'horizontal' and active_notes.size == 1
+                echo active_notes[0]
+              elsif active_notes.size > 0
+                echo active_notes.size
+              endif
+            -%}
+          </span>
+        </facet-status-component>
+        <span class="svg-wrapper icon-caret icon-animated">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+      </div>
+    </summary>
+    <floating-panel-component
+      {% unless filter_style == 'vertical' %}
+        data-close-on-resize
+      {% endunless %}
+      class="facets__inputs facets__panel-content details-content{% if filter_style == 'horizontal' %} color-{{ settings.popover_color_scheme }}{% endif %}"
+      id="facet-inputs-{{ sectionId }}-olfactive-notes"
+    >
+      <facet-inputs-component
+        on:change="/updateCustomFilters"
+        id="facet-inputs-component-{{ sectionId }}-olfactive-notes"
+        data-filter-type="olfactive_notes"
+      >
+        <div class="facets__inputs-wrapper">
+          <ul
+            id="filters-list-{{ sectionId }}-olfactive-notes"
+            class="facets__inputs-list list-unstyled"
+            name="Notes Olfactives"
+          >
+            {%- for note in olfactive_notes -%}
+              {%- liquid
+                assign input_id = 'Filter-olfactive-note-' | append: note | append: '-' | append: sectionId
+                assign is_checked = false
+                if active_notes contains note
+                  assign is_checked = true
+                endif
+              -%}
+              <li class="facets__inputs-list-item">
+                <div class="checkbox custom-filter-input" data-filter-type="olfactive_notes" on:pointerenter="/prefetchPage" on:pointerleave="/cancelPrefetchPage">
+                  <input
+                    type="checkbox"
+                    name="filter.olfactive_note"
+                    value="{{ note }}"
+                    id="{{ input_id }}"
+                    class="checkbox__input custom-filter-input"
+                    data-label="{{ note }}"
+                    data-filter-type="olfactive_notes"
+                    {% if is_checked %}
+                      checked
+                    {% endif %}
+                    ref="facetInputs[]"
+                  >
+                  <label
+                    class="checkbox__label"
+                    for="{{ input_id }}"
+                  >
+                    <span class="svg-wrapper icon-checkmark">
+                      {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                    </span>
+                    <span class="checkbox__label-text">{{ note }}</span>
+                  </label>
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        {% if should_render_clear %}
+          <facet-clear-component>
+            <div
+              class="facets__clear {% if active_notes.size > 0 %}facets__clear--active{% endif %}"
+              ref="clearButton"
+            >
+              <button
+                type="button"
+                on:click="/clearCustomFilter"
+                on:keydown="/clearCustomFilter"
+                class="clear-filter button button-secondary"
+                data-filter-type="olfactive_notes"
+              >
+                {{- 'actions.clear' | t -}}
+              </button>
+            </div>
+          </facet-clear-component>
+        {% endif %}
+      </facet-inputs-component>
+    </floating-panel-component>
+  </details>
+</accordion-custom>
+

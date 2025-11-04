@@ -1,0 +1,162 @@
+{%- doc -%}
+  Renders a custom intensity filter.
+
+  @param {string} filter_style - The filter style ('horizontal' | 'vertical')
+  @param {number} sectionId - The section ID
+  @param {boolean} [should_render_clear] - Whether to render the clear button
+{%- enddoc -%}
+
+{%- liquid
+  assign intensity_values = '1,2,3,4,5,6,7,8,9,10' | split: ','
+  assign active_intensities_string = ''
+  assign url_params = request.url | split: '?' | last | split: '&'
+  for param in url_params
+    if param contains 'filter.intensity='
+      assign intensity_value = param | split: '=' | last | url_decode
+      if active_intensities_string == ''
+        assign active_intensities_string = intensity_value
+      else
+        assign active_intensities_string = active_intensities_string | append: ',' | append: intensity_value
+      endif
+    endif
+  endfor
+  assign active_intensities = active_intensities_string | split: ','
+-%}
+
+<accordion-custom
+  class="facets__item custom-metafield-filter"
+  {% if filter_style == 'horizontal' %}
+    data-disable-animation-on-desktop="true"
+    data-close-with-escape="true"
+  {% endif %}
+  open-by-default-on-mobile
+  {% if filter_style == 'vertical' %}
+    open
+    open-by-default-on-desktop
+  {% endif %}
+  data-filter-param-name="intensity"
+>
+  <details
+    id="Facet-Details-{{ sectionId }}-intensity"
+    class="facets__panel"
+    {% if filter_style == 'horizontal' %}
+      data-auto-close-details="desktop"
+    {% endif %}
+  >
+    <summary class="facets__summary">
+      <span class="facets__label">Intensité</span>
+
+      <div class="facets__status-wrapper">
+        <facet-status-component
+          class="facets__status"
+          facet-type="list"
+          data-filter-style="{{ filter_style }}"
+        >
+          <span
+            {% if filter_style == 'horizontal' %}
+              {% if active_intensities.size > 1 %}
+                class="bubble facets__bubble"
+              {% endif %}
+            {% else %}
+              {% if active_intensities.size > 0 %}
+                class="bubble facets__bubble"
+              {% endif %}
+            {% endif %}
+            hide-when-empty
+            ref="facetStatus"
+          >
+            {%- liquid
+              if filter_style == 'horizontal' and active_intensities.size == 1
+                echo active_intensities[0]
+              elsif active_intensities.size > 0
+                echo active_intensities.size
+              endif
+            -%}
+          </span>
+        </facet-status-component>
+        <span class="svg-wrapper icon-caret icon-animated">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+      </div>
+    </summary>
+    <floating-panel-component
+      {% unless filter_style == 'vertical' %}
+        data-close-on-resize
+      {% endunless %}
+      class="facets__inputs facets__panel-content details-content{% if filter_style == 'horizontal' %} color-{{ settings.popover_color_scheme }}{% endif %}"
+      id="facet-inputs-{{ sectionId }}-intensity"
+    >
+      <facet-inputs-component
+        on:change="/updateCustomFilters"
+        id="facet-inputs-component-{{ sectionId }}-intensity"
+        data-filter-type="intensity"
+      >
+        <div class="facets__inputs-wrapper facets__inputs-wrapper--row">
+          <ul
+            id="filters-list-{{ sectionId }}-intensity"
+            class="facets__inputs-list facets__inputs-list--grid list-unstyled"
+            name="Intensité"
+          >
+            {%- for intensity_value in intensity_values -%}
+              {%- liquid
+                assign input_id = 'Filter-intensity-' | append: intensity_value | append: '-' | append: sectionId
+                assign is_checked = false
+                if active_intensities contains intensity_value
+                  assign is_checked = true
+                endif
+              -%}
+              <li class="facets__inputs-list-item">
+                <div
+                  class="facets__pill-wrapper"
+                  on:keydown="#facet-inputs-component-{{ sectionId }}-intensity/handleKeyDown"
+                >
+                  <input
+                    type="checkbox"
+                    name="filter.intensity"
+                    value="{{ intensity_value }}"
+                    id="{{ input_id }}"
+                    class="facets__pill-input custom-filter-input"
+                    data-label="{{ intensity_value }}"
+                    data-filter-type="intensity"
+                    {% if is_checked %}
+                      checked
+                    {% endif %}
+                    ref="facetInputs[]"
+                    tabindex="-1"
+                  >
+                  <label
+                    class="facets__pill-label"
+                    for="{{ input_id }}"
+                    tabindex="0"
+                  >
+                    {{ intensity_value }}
+                  </label>
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        {% if should_render_clear %}
+          <facet-clear-component>
+            <div
+              class="facets__clear {% if active_intensities.size > 0 %}facets__clear--active{% endif %}"
+              ref="clearButton"
+            >
+              <button
+                type="button"
+                on:click="/clearCustomFilter"
+                on:keydown="/clearCustomFilter"
+                class="clear-filter button button-secondary"
+                data-filter-type="intensity"
+              >
+                {{- 'actions.clear' | t -}}
+              </button>
+            </div>
+          </facet-clear-component>
+        {% endif %}
+      </facet-inputs-component>
+    </floating-panel-component>
+  </details>
+</accordion-custom>
+

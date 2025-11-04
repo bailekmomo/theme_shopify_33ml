@@ -206,6 +206,182 @@ if (!customElements.get('facet-inputs-component')) {
 }
 
 /**
+ * Filters products client-side based on custom metafield filters
+ */
+function filterProductsByCustomMetafields() {
+  const productGrid = document.querySelector('.product-grid');
+  if (!productGrid) return;
+
+  const productItems = Array.from(productGrid.querySelectorAll('.product-grid__item'));
+  if (productItems.length === 0) return;
+
+  // Get all active custom filters
+  const urlParams = new URLSearchParams(window.location.search);
+  const activeIntensities = urlParams.getAll('filter.intensity');
+  const activeOlfactiveNotes = urlParams.getAll('filter.olfactive_note');
+
+  // Filter products
+  productItems.forEach((item) => {
+    const productCard = item.querySelector('product-card');
+    if (!(productCard instanceof HTMLElement)) {
+      if (item instanceof HTMLElement) {
+        item.style.display = 'none';
+      }
+      return;
+    }
+
+    let shouldShow = true;
+
+    // Check intensity filter
+    if (activeIntensities.length > 0) {
+      const intensity = productCard.dataset.intensity;
+      if (!intensity || !activeIntensities.includes(intensity)) {
+        shouldShow = false;
+      }
+    }
+
+    // Check olfactive notes filter
+    if (activeOlfactiveNotes.length > 0 && shouldShow) {
+      const olfactiveNotes = productCard.dataset.olfactiveNotes;
+      if (!olfactiveNotes) {
+        shouldShow = false;
+      } else {
+        const notesArray = olfactiveNotes.split(',').map((note) => note.trim());
+        const hasMatchingNote = activeOlfactiveNotes.some((activeNote) =>
+          notesArray.some((note) => note === activeNote)
+        );
+        if (!hasMatchingNote) {
+          shouldShow = false;
+        }
+      }
+    }
+
+    if (item instanceof HTMLElement) {
+      item.style.display = shouldShow ? '' : 'none';
+    }
+  });
+}
+
+/**
+ * Updates URL with custom filter parameters
+ * @param {string} filterType - The filter type ('intensity' | 'olfactive_notes')
+ */
+function updateCustomFilterURL(filterType) {
+  const url = new URL(window.location.href);
+  const facetInputs = document.querySelector(`facet-inputs-component[data-filter-type="${filterType}"]`);
+  
+  if (!facetInputs) return;
+
+  // Remove existing filter parameters for this filter type
+  if (filterType === 'intensity') {
+    url.searchParams.delete('filter.intensity');
+  } else if (filterType === 'olfactive_notes') {
+    url.searchParams.delete('filter.olfactive_note');
+  }
+
+  // Add checked filter values
+  const checkedInputs = facetInputs.querySelectorAll('input[type="checkbox"]:checked');
+  checkedInputs.forEach((input) => {
+    if (!(input instanceof HTMLInputElement)) return;
+    if (filterType === 'intensity') {
+      url.searchParams.append('filter.intensity', input.value);
+    } else if (filterType === 'olfactive_notes') {
+      url.searchParams.append('filter.olfactive_note', input.value);
+    }
+  });
+
+  history.pushState({ urlParameters: url.searchParams.toString() }, '', url.toString());
+}
+
+/**
+ * Updates facet status display
+ * @param {HTMLElement} facetInputs - The facet inputs component element
+ */
+function updateCustomFacetStatus(facetInputs) {
+  if (!(facetInputs instanceof HTMLElement)) return;
+  
+  const checkedInputs = facetInputs.querySelectorAll('input[type="checkbox"]:checked');
+  const details = facetInputs.closest('details');
+  const statusComponent = details?.querySelector('facet-status-component');
+
+  if (!(statusComponent instanceof FacetStatusComponent)) return;
+
+  const checkedElements = Array.from(checkedInputs).filter((input) => input instanceof HTMLInputElement);
+  statusComponent.updateListSummary(checkedElements);
+}
+
+// Extend FacetInputsComponent to handle custom filters
+const originalUpdateFilters = FacetInputsComponent.prototype.updateFilters;
+FacetInputsComponent.prototype.updateFilters = function () {
+  const filterType = this.dataset.filterType;
+  if (filterType === 'intensity' || filterType === 'olfactive_notes') {
+    updateCustomFilterURL(filterType);
+    filterProductsByCustomMetafields();
+    updateCustomFacetStatus(this);
+  } else {
+    originalUpdateFilters.call(this);
+  }
+};
+
+// Register custom filter handlers
+document.addEventListener('DOMContentLoaded', () => {
+  // Handle custom filter inputs
+  document.addEventListener('change', (event) => {
+    if (event.target instanceof HTMLInputElement && event.target.classList.contains('custom-filter-input')) {
+      const facetInputs = event.target.closest('facet-inputs-component');
+      if (facetInputs instanceof HTMLElement) {
+        const filterType = facetInputs.dataset.filterType;
+        if (filterType === 'intensity' || filterType === 'olfactive_notes') {
+          updateCustomFilterURL(filterType);
+          filterProductsByCustomMetafields();
+          updateCustomFacetStatus(facetInputs);
+        }
+      }
+    }
+  });
+
+  // Handle clear custom filter buttons
+  document.addEventListener('click', (event) => {
+    if (event.target instanceof HTMLButtonElement && event.target.classList.contains('clear-filter')) {
+      const filterType = event.target.dataset.filterType;
+      if (filterType === 'intensity' || filterType === 'olfactive_notes') {
+        const facetInputs = event.target.closest('facet-inputs-component');
+        if (facetInputs instanceof HTMLElement) {
+          event.preventDefault();
+          
+          // Uncheck all inputs
+          const inputs = facetInputs.querySelectorAll('input[type="checkbox"]');
+          inputs.forEach((input) => {
+            if (input instanceof HTMLInputElement) {
+              input.checked = false;
+            }
+          });
+
+          // Update URL
+          const url = new URL(window.location.href);
+          if (filterType === 'intensity') {
+            url.searchParams.delete('filter.intensity');
+          } else if (filterType === 'olfactive_notes') {
+            url.searchParams.delete('filter.olfactive_note');
+          }
+          history.pushState({ urlParameters: url.searchParams.toString() }, '', url.toString());
+
+          // Filter products and update status
+          filterProductsByCustomMetafields();
+          updateCustomFacetStatus(facetInputs);
+        }
+      }
+    }
+  });
+
+  // Apply filters on page load
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('filter.intensity') || urlParams.has('filter.olfactive_note')) {
+    filterProductsByCustomMetafields();
+  }
+});
+
+/**
  * @typedef {Object} PriceFacetRefs
  * @property {HTMLInputElement} minInput - The minimum price input
  * @property {HTMLInputElement} maxInput - The maximum price input

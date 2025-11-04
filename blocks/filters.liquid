@@ -191,6 +191,15 @@
                       %}
                   {% endcase %}
                 {%- endfor -%}
+                {% comment %} Filtres personnalisés par metafields {% endcomment %}
+                {%- liquid
+                  assign should_render_clear_custom = true
+                  if block_settings.filter_style == 'vertical'
+                    assign should_render_clear_custom = false
+                  endif
+                -%}
+                {% render 'intensity-filter', filter_style: block_settings.filter_style, sectionId: section.id, should_render_clear: should_render_clear_custom %}
+                {% render 'olfactive-notes-filter', filter_style: block_settings.filter_style, sectionId: section.id, should_render_clear: should_render_clear_custom %}
               {% endcapture %}
 
               <div class="facets__filters-wrapper">
@@ -422,6 +431,9 @@
                     %}
                 {% endcase %}
               {%- endfor -%}
+              {% comment %} Filtres personnalisés par metafields {% endcomment %}
+              {% render 'intensity-filter', filter_style: 'vertical', sectionId: section.id, should_render_clear: false %}
+              {% render 'olfactive-notes-filter', filter_style: 'vertical', sectionId: section.id, should_render_clear: false %}
             </div>
           {% endif %}
 

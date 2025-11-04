@@ -1352,7 +1352,7 @@
                   "type": "_product-card-group",
                   "name": "t:names.group",
                   "settings": {
-                    "content_direction": "column",
+                    "content_direction": "row",
                     "vertical_on_mobile": true,
                     "horizontal_alignment": "flex-start",
                     "vertical_alignment": "center",
@@ -1360,7 +1360,7 @@
                     "horizontal_alignment_flex_direction_column": "flex-start",
                     "vertical_alignment_flex_direction_column": "flex-start",
                     "gap": 12,
-                    "width": "fit-content",
+                    "width": "fill",
                     "custom_width": 100,
                     "width_mobile": "fill",
                     "custom_width_mobile": 25,
@@ -1412,10 +1412,22 @@
                         "padding-inline-end": 0
                       },
                       "blocks": {}
+                    },
+                    "product_intensity_c8YbpU": {
+                      "type": "product-intensity",
+                      "name": "Intensité",
+                      "settings": {
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
                     }
                   },
                   "block_order": [
-                    "text_JHMjjF"
+                    "text_JHMjjF",
+                    "product_intensity_c8YbpU"
                   ]
                 },
                 "group_pLH7Cd": {

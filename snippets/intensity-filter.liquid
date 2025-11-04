@@ -7,20 +7,15 @@
 {%- enddoc -%}
 
 {%- liquid
-  assign intensity_values = '1,2,3,4,5,6,7,8,9,10' | split: ','
-  assign active_intensities_string = ''
+  assign intensity_max = 10
+  assign selected_max_intensity = null
   assign url_params = request.url | split: '?' | last | split: '&'
   for param in url_params
-    if param contains 'filter.intensity='
-      assign intensity_value = param | split: '=' | last | url_decode
-      if active_intensities_string == ''
-        assign active_intensities_string = intensity_value
-      else
-        assign active_intensities_string = active_intensities_string | append: ',' | append: intensity_value
-      endif
+    if param contains 'filter.intensity_max='
+      assign selected_max_intensity = param | split: '=' | last | url_decode | plus: 0
+      break
     endif
   endfor
-  assign active_intensities = active_intensities_string | split: ','
 -%}
 
 <accordion-custom
@@ -53,25 +48,15 @@
           data-filter-style="{{ filter_style }}"
         >
           <span
-            {% if filter_style == 'horizontal' %}
-              {% if active_intensities.size > 1 %}
-                class="bubble facets__bubble"
-              {% endif %}
-            {% else %}
-              {% if active_intensities.size > 0 %}
-                class="bubble facets__bubble"
-              {% endif %}
+            {% if selected_max_intensity %}
+              class="bubble facets__bubble"
             {% endif %}
             hide-when-empty
             ref="facetStatus"
           >
-            {%- liquid
-              if filter_style == 'horizontal' and active_intensities.size == 1
-                echo active_intensities[0]
-              elsif active_intensities.size > 0
-                echo active_intensities.size
-              endif
-            -%}
+            {%- if selected_max_intensity -%}
+              ≤ {{ selected_max_intensity }}
+            {%- endif -%}
           </span>
         </facet-status-component>
         <span class="svg-wrapper icon-caret icon-animated">
@@ -91,56 +76,40 @@
         id="facet-inputs-component-{{ sectionId }}-intensity"
         data-filter-type="intensity"
       >
-        <div class="facets__inputs-wrapper facets__inputs-wrapper--row">
-          <ul
-            id="filters-list-{{ sectionId }}-intensity"
-            class="facets__inputs-list facets__inputs-list--grid list-unstyled"
-            name="Intensité"
-          >
-            {%- for intensity_value in intensity_values -%}
-              {%- liquid
-                assign input_id = 'Filter-intensity-' | append: intensity_value | append: '-' | append: sectionId
-                assign is_checked = false
-                if active_intensities contains intensity_value
-                  assign is_checked = true
-                endif
-              -%}
-              <li class="facets__inputs-list-item">
-                <div
-                  class="facets__pill-wrapper"
-                  on:keydown="#facet-inputs-component-{{ sectionId }}-intensity/handleKeyDown"
-                >
-                  <input
-                    type="checkbox"
-                    name="filter.intensity"
-                    value="{{ intensity_value }}"
-                    id="{{ input_id }}"
-                    class="facets__pill-input custom-filter-input"
-                    data-label="{{ intensity_value }}"
-                    data-filter-type="intensity"
-                    {% if is_checked %}
-                      checked
-                    {% endif %}
-                    ref="facetInputs[]"
-                    tabindex="-1"
-                  >
-                  <label
-                    class="facets__pill-label"
-                    for="{{ input_id }}"
-                    tabindex="0"
-                  >
-                    {{ intensity_value }}
-                  </label>
-                </div>
-              </li>
-            {%- endfor -%}
-          </ul>
+        <div class="intensity-filter__wrapper">
+          <div class="intensity-filter__gauge">
+            <input
+              type="range"
+              name="filter.intensity_max"
+              id="intensity-slider-{{ sectionId }}"
+              class="intensity-filter__slider custom-filter-input"
+              data-filter-type="intensity"
+              min="1"
+              max="{{ intensity_max }}"
+              value="{% if selected_max_intensity %}{{ selected_max_intensity }}{% else %}{{ intensity_max }}{% endif %}"
+              step="1"
+              ref="facetInputs[]"
+            >
+            <div class="intensity-filter__labels">
+              <span class="intensity-filter__label-min">1</span>
+              <span class="intensity-filter__label-max">{{ intensity_max }}</span>
+            </div>
+            <div class="intensity-filter__value-display">
+              <span class="intensity-filter__value-text">
+                {% if selected_max_intensity %}
+                  ≤ {{ selected_max_intensity }}
+                {% else %}
+                  Tous
+                {% endif %}
+              </span>
+            </div>
+          </div>
         </div>
 
         {% if should_render_clear %}
           <facet-clear-component>
             <div
-              class="facets__clear {% if active_intensities.size > 0 %}facets__clear--active{% endif %}"
+              class="facets__clear {% if selected_max_intensity %}facets__clear--active{% endif %}"
               ref="clearButton"
             >
               <button
@@ -159,4 +128,72 @@
     </floating-panel-component>
   </details>
 </accordion-custom>
+
+{% stylesheet %}
+  .intensity-filter__wrapper {
+    padding: var(--padding-sm) 0;
+  }
+
+  .intensity-filter__gauge {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+  }
+
+  .intensity-filter__slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgb(var(--color-foreground-rgb) / 0.1);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .intensity-filter__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgb(var(--color-foreground-rgb));
+    cursor: pointer;
+    border: 2px solid var(--color-background);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .intensity-filter__slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgb(var(--color-foreground-rgb));
+    cursor: pointer;
+    border: 2px solid var(--color-background);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .intensity-filter__labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-paragraph--size);
+    color: var(--color-foreground-muted);
+    padding: 0 var(--padding-xs);
+  }
+
+  .intensity-filter__value-display {
+    text-align: center;
+    padding: var(--padding-xs) 0;
+  }
+
+  .intensity-filter__value-text {
+    font-size: var(--font-h5--size);
+    font-weight: 500;
+    color: var(--color-foreground);
+  }
+
+  .facets--horizontal .intensity-filter__wrapper {
+    padding: var(--padding-md);
+  }
+{% endstylesheet %}
 

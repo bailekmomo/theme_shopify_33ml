@@ -217,7 +217,7 @@ function filterProductsByCustomMetafields() {
 
   // Get all active custom filters
   const urlParams = new URLSearchParams(window.location.search);
-  const activeIntensities = urlParams.getAll('filter.intensity');
+  const intensityMax = urlParams.get('filter.intensity_max');
   const activeOlfactiveNotes = urlParams.getAll('filter.olfactive_note');
 
   // Filter products
@@ -232,11 +232,17 @@ function filterProductsByCustomMetafields() {
 
     let shouldShow = true;
 
-    // Check intensity filter
-    if (activeIntensities.length > 0) {
+    // Check intensity filter (maximum value)
+    if (intensityMax) {
       const intensity = productCard.dataset.intensity;
-      if (!intensity || !activeIntensities.includes(intensity)) {
+      if (!intensity) {
         shouldShow = false;
+      } else {
+        const intensityValue = parseInt(intensity, 10);
+        const maxValue = parseInt(intensityMax, 10);
+        if (isNaN(intensityValue) || isNaN(maxValue) || intensityValue > maxValue) {
+          shouldShow = false;
+        }
       }
     }
 
@@ -274,21 +280,28 @@ function updateCustomFilterURL(filterType) {
 
   // Remove existing filter parameters for this filter type
   if (filterType === 'intensity') {
-    url.searchParams.delete('filter.intensity');
+    url.searchParams.delete('filter.intensity_max');
+    
+    // Get slider value
+    const slider = facetInputs.querySelector('input[type="range"]');
+    if (slider instanceof HTMLInputElement) {
+      const maxIntensity = parseInt(slider.value, 10);
+      const sliderMax = parseInt(slider.max, 10);
+      // Only add to URL if not at maximum (meaning all products are shown)
+      if (maxIntensity < sliderMax) {
+        url.searchParams.set('filter.intensity_max', slider.value);
+      }
+    }
   } else if (filterType === 'olfactive_notes') {
     url.searchParams.delete('filter.olfactive_note');
-  }
-
-  // Add checked filter values
-  const checkedInputs = facetInputs.querySelectorAll('input[type="checkbox"]:checked');
-  checkedInputs.forEach((input) => {
-    if (!(input instanceof HTMLInputElement)) return;
-    if (filterType === 'intensity') {
-      url.searchParams.append('filter.intensity', input.value);
-    } else if (filterType === 'olfactive_notes') {
+    
+    // Add checked filter values
+    const checkedInputs = facetInputs.querySelectorAll('input[type="checkbox"]:checked');
+    checkedInputs.forEach((input) => {
+      if (!(input instanceof HTMLInputElement)) return;
       url.searchParams.append('filter.olfactive_note', input.value);
-    }
-  });
+    });
+  }
 
   history.pushState({ urlParameters: url.searchParams.toString() }, '', url.toString());
 }
@@ -300,14 +313,45 @@ function updateCustomFilterURL(filterType) {
 function updateCustomFacetStatus(facetInputs) {
   if (!(facetInputs instanceof HTMLElement)) return;
   
-  const checkedInputs = facetInputs.querySelectorAll('input[type="checkbox"]:checked');
+  const filterType = facetInputs.dataset.filterType;
   const details = facetInputs.closest('details');
   const statusComponent = details?.querySelector('facet-status-component');
 
   if (!(statusComponent instanceof FacetStatusComponent)) return;
 
-  const checkedElements = Array.from(checkedInputs).filter((input) => input instanceof HTMLInputElement);
-  statusComponent.updateListSummary(checkedElements);
+  if (filterType === 'intensity') {
+    // Update intensity filter status
+    const slider = facetInputs.querySelector('input[type="range"]');
+    if (slider instanceof HTMLInputElement) {
+      const maxIntensity = parseInt(slider.value, 10);
+      const sliderMax = parseInt(slider.max, 10);
+      const statusSpan = statusComponent.querySelector('span[ref="facetStatus"]');
+      if (statusSpan instanceof HTMLElement) {
+        if (maxIntensity < sliderMax) {
+          statusSpan.textContent = `≤ ${maxIntensity}`;
+          statusSpan.classList.add('bubble', 'facets__bubble');
+        } else {
+          statusSpan.textContent = '';
+          statusSpan.classList.remove('bubble', 'facets__bubble');
+        }
+      }
+      
+      // Update value display
+      const valueDisplay = facetInputs.querySelector('.intensity-filter__value-text');
+      if (valueDisplay instanceof HTMLElement) {
+        if (maxIntensity < sliderMax) {
+          valueDisplay.textContent = `≤ ${maxIntensity}`;
+        } else {
+          valueDisplay.textContent = 'Tous';
+        }
+      }
+    }
+  } else if (filterType === 'olfactive_notes') {
+    // Update olfactive notes filter status
+    const checkedInputs = facetInputs.querySelectorAll('input[type="checkbox"]:checked');
+    const checkedElements = Array.from(checkedInputs).filter((input) => input instanceof HTMLInputElement);
+    statusComponent.updateListSummary(checkedElements);
+  }
 }
 
 // Extend FacetInputsComponent to handle custom filters
@@ -325,7 +369,7 @@ FacetInputsComponent.prototype.updateFilters = function () {
 
 // Register custom filter handlers
 document.addEventListener('DOMContentLoaded', () => {
-  // Handle custom filter inputs
+  // Handle custom filter inputs (including slider)
   document.addEventListener('change', (event) => {
     if (event.target instanceof HTMLInputElement && event.target.classList.contains('custom-filter-input')) {
       const facetInputs = event.target.closest('facet-inputs-component');
@@ -334,6 +378,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (filterType === 'intensity' || filterType === 'olfactive_notes') {
           updateCustomFilterURL(filterType);
           filterProductsByCustomMetafields();
+          updateCustomFacetStatus(facetInputs);
+        }
+      }
+    }
+  });
+
+  // Handle slider input for real-time updates
+  document.addEventListener('input', (event) => {
+    if (event.target instanceof HTMLInputElement && event.target.type === 'range' && event.target.classList.contains('custom-filter-input')) {
+      const facetInputs = event.target.closest('facet-inputs-component');
+      if (facetInputs instanceof HTMLElement) {
+        const filterType = facetInputs.dataset.filterType;
+        if (filterType === 'intensity') {
+          // Update value display in real-time
           updateCustomFacetStatus(facetInputs);
         }
       }
@@ -360,7 +418,12 @@ document.addEventListener('DOMContentLoaded', () => {
           // Update URL
           const url = new URL(window.location.href);
           if (filterType === 'intensity') {
-            url.searchParams.delete('filter.intensity');
+            url.searchParams.delete('filter.intensity_max');
+            // Reset slider to max value
+            const slider = facetInputs.querySelector('input[type="range"]');
+            if (slider instanceof HTMLInputElement) {
+              slider.value = slider.max;
+            }
           } else if (filterType === 'olfactive_notes') {
             url.searchParams.delete('filter.olfactive_note');
           }
@@ -376,8 +439,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Apply filters on page load
   const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('filter.intensity') || urlParams.has('filter.olfactive_note')) {
+  if (urlParams.has('filter.intensity_max') || urlParams.has('filter.olfactive_note')) {
     filterProductsByCustomMetafields();
+    
+    // Update intensity slider position if filter is active
+    if (urlParams.has('filter.intensity_max')) {
+      const intensityMax = urlParams.get('filter.intensity_max');
+      if (intensityMax) {
+        const intensityFilters = document.querySelectorAll('facet-inputs-component[data-filter-type="intensity"]');
+        intensityFilters.forEach((facetInputs) => {
+          if (facetInputs instanceof HTMLElement) {
+            const slider = facetInputs.querySelector('input[type="range"]');
+            if (slider instanceof HTMLInputElement) {
+              slider.value = intensityMax;
+              updateCustomFacetStatus(facetInputs);
+            }
+          }
+        });
+      }
+    }
   }
 });
 

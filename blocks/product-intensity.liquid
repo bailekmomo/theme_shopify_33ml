@@ -1,5 +1,8 @@
 
-{%- if product.metafields.custom.intensite -%}
+{%- liquid
+  assign product_resource = closest.product | default: product
+-%}
+{%- if product_resource.metafields.custom.intensite -%}
   <div 
     class="intensity-linear-container spacing-style"
     style="{% render 'spacing-style', settings: block.settings %}"
@@ -7,18 +10,18 @@
   >
     <div class="intensity-header">
       <span class="intensity-title">INTENSITÉ</span>
-      <span class="intensity-value">{{ product.metafields.custom.intensite.value }}/10</span>
+      <span class="intensity-value">{{ product_resource.metafields.custom.intensite.value }}/10</span>
     </div>
     
     <div class="intensity-bar-wrapper">
       <div class="intensity-bar">
-        <div class="intensity-fill" style="--intensity-width: {{ product.metafields.custom.intensite.value | times: 10 }}%"></div>
+        <div class="intensity-fill" style="--intensity-width: {{ product_resource.metafields.custom.intensite.value | times: 10 }}%"></div>
       </div>
     </div>
     
     <div class="intensity-dots">
       {% for i in (1..10) %}
-        <span class="dot {% if i <= product.metafields.custom.intensite.value %}dot-filled{% endif %}"></span>
+        <span class="dot {% if i <= product_resource.metafields.custom.intensite.value %}dot-filled{% endif %}"></span>
       {% endfor %}
     </div>
   </div>

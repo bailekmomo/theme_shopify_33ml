@@ -101,6 +101,12 @@
   data-product-variants-size="{{ product.variants.size }}"
   id="product-card-{{ block.id }}"
   data-product-transition="{{ settings.transition_to_main_product }}"
+  {% if product.metafields.custom.intensite %}
+    data-intensity="{{ product.metafields.custom.intensite.value }}"
+  {% endif %}
+  {% if product.metafields.custom.notes_olfactives %}
+    data-olfactive-notes="{{ product.metafields.custom.notes_olfactives.value }}"
+  {% endif %}
   {{ block.shopify_attributes }}
   {% if no_swatch_selected %}
     data-no-swatch-selected="true"

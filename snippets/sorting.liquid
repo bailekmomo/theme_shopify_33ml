@@ -21,11 +21,27 @@
 >
   {% liquid
     assign default_sort_by = results.default_sort_by
+    assign status_found = false
     for option in results.sort_options
       if option.value == sort_by
         assign status = option.name
+        assign status_found = true
       endif
     endfor
+    if status_found == false
+      case sort_by
+        when 'intensity_asc'
+          assign status = 'Intensité : Croissant'
+        when 'intensity_desc'
+          assign status = 'Intensité : Décroissant'
+        when 'olfactive_notes_asc'
+          assign status = 'Note Olfactive : A-Z'
+        when 'olfactive_notes_desc'
+          assign status = 'Note Olfactive : Z-A'
+        else
+          assign status = ''
+      endcase
+    endif
   %}
 
   <div class="sorting-filter__container {% if should_use_select_on_mobile %} desktop:hidden {% else %} hidden {% endif %}">
@@ -54,6 +70,39 @@
             {{ option.name }}
           </option>
         {% endfor %}
+        {% comment %} Options de tri personnalisées par metafields {% endcomment %}
+        <option
+          value="intensity_asc"
+          {% if sort_by == 'intensity_asc' %}
+            selected
+          {% endif %}
+        >
+          Intensité : Croissant
+        </option>
+        <option
+          value="intensity_desc"
+          {% if sort_by == 'intensity_desc' %}
+            selected
+          {% endif %}
+        >
+          Intensité : Décroissant
+        </option>
+        <option
+          value="olfactive_notes_asc"
+          {% if sort_by == 'olfactive_notes_asc' %}
+            selected
+          {% endif %}
+        >
+          Note Olfactive : A-Z
+        </option>
+        <option
+          value="olfactive_notes_desc"
+          {% if sort_by == 'olfactive_notes_desc' %}
+            selected
+          {% endif %}
+        >
+          Note Olfactive : Z-A
+        </option>
       </select>
       <svg
         aria-hidden="true"
@@ -143,6 +192,119 @@
             </div>
           </label>
         {% endfor %}
+        {% comment %} Options de tri personnalisées par metafields {% endcomment %}
+        <label for="sort-option-intensity_asc-{{ section_id }}">
+          <div
+            class="sorting-filter__option"
+            role="option"
+            aria-selected="{% if sort_by == 'intensity_asc' %}true{% else %}false{% endif %}"
+            tabindex="{% if sort_by == 'intensity_asc' %}0{% else %}-1{% endif %}"
+          >
+            <input
+              type="radio"
+              name="sort_by"
+              id="sort-option-intensity_asc-{{ section_id }}"
+              {% if suffix != blank %}
+                form="FacetFiltersForm--{{ section_id }}-{{ suffix }}"
+              {% endif %}
+              value="intensity_asc"
+              class="sorting-filter__input"
+              data-option-name="Intensité : Croissant"
+              {% if sort_by == 'intensity_asc' %}
+                checked
+              {% endif %}
+              aria-hidden="true"
+            >
+            <span class="svg-wrapper icon-checkmark sorting-filter__checkmark">
+              {{- 'icon-checkmark.svg' | inline_asset_content -}}
+            </span>
+            <span class="sorting-filter__label">Intensité : Croissant</span>
+          </div>
+        </label>
+        <label for="sort-option-intensity_desc-{{ section_id }}">
+          <div
+            class="sorting-filter__option"
+            role="option"
+            aria-selected="{% if sort_by == 'intensity_desc' %}true{% else %}false{% endif %}"
+            tabindex="{% if sort_by == 'intensity_desc' %}0{% else %}-1{% endif %}"
+          >
+            <input
+              type="radio"
+              name="sort_by"
+              id="sort-option-intensity_desc-{{ section_id }}"
+              {% if suffix != blank %}
+                form="FacetFiltersForm--{{ section_id }}-{{ suffix }}"
+              {% endif %}
+              value="intensity_desc"
+              class="sorting-filter__input"
+              data-option-name="Intensité : Décroissant"
+              {% if sort_by == 'intensity_desc' %}
+                checked
+              {% endif %}
+              aria-hidden="true"
+            >
+            <span class="svg-wrapper icon-checkmark sorting-filter__checkmark">
+              {{- 'icon-checkmark.svg' | inline_asset_content -}}
+            </span>
+            <span class="sorting-filter__label">Intensité : Décroissant</span>
+          </div>
+        </label>
+        <label for="sort-option-olfactive_notes_asc-{{ section_id }}">
+          <div
+            class="sorting-filter__option"
+            role="option"
+            aria-selected="{% if sort_by == 'olfactive_notes_asc' %}true{% else %}false{% endif %}"
+            tabindex="{% if sort_by == 'olfactive_notes_asc' %}0{% else %}-1{% endif %}"
+          >
+            <input
+              type="radio"
+              name="sort_by"
+              id="sort-option-olfactive_notes_asc-{{ section_id }}"
+              {% if suffix != blank %}
+                form="FacetFiltersForm--{{ section_id }}-{{ suffix }}"
+              {% endif %}
+              value="olfactive_notes_asc"
+              class="sorting-filter__input"
+              data-option-name="Note Olfactive : A-Z"
+              {% if sort_by == 'olfactive_notes_asc' %}
+                checked
+              {% endif %}
+              aria-hidden="true"
+            >
+            <span class="svg-wrapper icon-checkmark sorting-filter__checkmark">
+              {{- 'icon-checkmark.svg' | inline_asset_content -}}
+            </span>
+            <span class="sorting-filter__label">Note Olfactive : A-Z</span>
+          </div>
+        </label>
+        <label for="sort-option-olfactive_notes_desc-{{ section_id }}">
+          <div
+            class="sorting-filter__option"
+            role="option"
+            aria-selected="{% if sort_by == 'olfactive_notes_desc' %}true{% else %}false{% endif %}"
+            tabindex="{% if sort_by == 'olfactive_notes_desc' %}0{% else %}-1{% endif %}"
+          >
+            <input
+              type="radio"
+              name="sort_by"
+              id="sort-option-olfactive_notes_desc-{{ section_id }}"
+              {% if suffix != blank %}
+                form="FacetFiltersForm--{{ section_id }}-{{ suffix }}"
+              {% endif %}
+              value="olfactive_notes_desc"
+              class="sorting-filter__input"
+              data-option-name="Note Olfactive : Z-A"
+              {% if sort_by == 'olfactive_notes_desc' %}
+                checked
+              {% endif %}
+              aria-hidden="true"
+            >
+            <span class="svg-wrapper icon-checkmark sorting-filter__checkmark">
+              {{- 'icon-checkmark.svg' | inline_asset_content -}}
+            </span>
+            <span class="sorting-filter__label">Note Olfactive : Z-A</span>
+          </div>
+        </label>
       </floating-panel-component>
     </details>
   </accordion-custom>

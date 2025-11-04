@@ -594,6 +594,24 @@ class SortingFilterComponent extends Component {
       this.closest('facets-form-component') || this.closest('.shopify-section')?.querySelector('facets-form-component');
 
     if (!(facetsForm instanceof FacetsFormComponent)) return;
+    
+    // Get the selected sort value
+    let sortValue = null;
+    if (event.target instanceof HTMLSelectElement) {
+      sortValue = event.target.value;
+    } else if (event.target instanceof HTMLInputElement && event.target.type === 'radio') {
+      sortValue = event.target.value;
+    } else {
+      const selectedInput = this.querySelector('input[name="sort_by"]:checked, select[name="sort_by"]');
+      if (selectedInput instanceof HTMLInputElement || selectedInput instanceof HTMLSelectElement) {
+        sortValue = selectedInput.value;
+      }
+    }
+
+    // Liste des options de tri personnalisées par metafields
+    const customSortOptions = ['intensity_asc', 'intensity_desc', 'olfactive_notes_asc', 'olfactive_notes_desc'];
+    const isCustomSort = sortValue && customSortOptions.includes(sortValue);
+
     const isMobile = window.innerWidth < 750;
 
     const shouldDisable = this.dataset.shouldUseSelectOnMobile === 'true';
@@ -614,8 +632,22 @@ class SortingFilterComponent extends Component {
       }
     }
 
-    facetsForm.updateFilters();
-    this.updateFacetStatus(event);
+    // Si c'est un tri personnalisé, trier côté client au lieu de faire une requête serveur
+    if (isCustomSort && sortValue) {
+      // Mettre à jour l'URL avec le paramètre sort_by personnalisé
+      const url = new URL(window.location.href);
+      url.searchParams.set('sort_by', sortValue);
+      history.pushState({ urlParameters: url.searchParams.toString() }, '', url.toString());
+      
+      // Trier les produits côté client
+      this.sortProductsByMetafields(sortValue);
+      
+      this.updateFacetStatus(event);
+    } else {
+      // Comportement normal pour les tris Shopify standards
+      facetsForm.updateFilters();
+      this.updateFacetStatus(event);
+    }
 
     // Re-enable the input after the form-submission
     if (shouldDisable) {
@@ -639,6 +671,90 @@ class SortingFilterComponent extends Component {
   }
 
   /**
+   * Sorts products by metafields (client-side sorting)
+   * @param {string} sortValue - The sort value (intensity_asc, intensity_desc, olfactive_notes_asc, olfactive_notes_desc)
+   */
+  sortProductsByMetafields(sortValue) {
+    const productGrid = document.querySelector('.product-grid');
+    if (!productGrid) return;
+
+    const productItems = Array.from(productGrid.querySelectorAll('.product-grid__item'));
+    if (productItems.length === 0) return;
+
+    // Récupérer les données des produits depuis les attributs data-* des cartes
+    const productsWithData = productItems
+      .map((item) => {
+        const productCard = item.querySelector('product-card');
+        if (!(productCard instanceof HTMLElement)) return null;
+
+        const productId = productCard.dataset.productId;
+        
+        // Récupérer l'intensité depuis l'attribut data-intensity
+        let intensity = null;
+        const intensityData = productCard.dataset.intensity;
+        if (intensityData) {
+          intensity = parseInt(intensityData, 10);
+        }
+
+        // Récupérer les notes olfactives depuis l'attribut data-olfactive-notes
+        let olfactiveNotes = null;
+        const olfactiveNotesData = productCard.dataset.olfactiveNotes;
+        if (olfactiveNotesData) {
+          olfactiveNotes = olfactiveNotesData;
+        }
+
+        return {
+          element: item,
+          productId,
+          intensity,
+          olfactiveNotes,
+        };
+      })
+      .filter((product) => product !== null);
+
+    // Trier selon le type de tri
+    productsWithData.sort((a, b) => {
+      switch (sortValue) {
+        case 'intensity_asc':
+          // Trier par intensité croissante (null en dernier)
+          if (a.intensity === null && b.intensity === null) return 0;
+          if (a.intensity === null) return 1;
+          if (b.intensity === null) return -1;
+          return a.intensity - b.intensity;
+
+        case 'intensity_desc':
+          // Trier par intensité décroissante (null en dernier)
+          if (a.intensity === null && b.intensity === null) return 0;
+          if (a.intensity === null) return 1;
+          if (b.intensity === null) return -1;
+          return b.intensity - a.intensity;
+
+        case 'olfactive_notes_asc':
+          // Trier par notes olfactives A-Z (null en dernier)
+          if (!a.olfactiveNotes && !b.olfactiveNotes) return 0;
+          if (!a.olfactiveNotes) return 1;
+          if (!b.olfactiveNotes) return -1;
+          return a.olfactiveNotes.localeCompare(b.olfactiveNotes, 'fr');
+
+        case 'olfactive_notes_desc':
+          // Trier par notes olfactives Z-A (null en dernier)
+          if (!a.olfactiveNotes && !b.olfactiveNotes) return 0;
+          if (!a.olfactiveNotes) return 1;
+          if (!b.olfactiveNotes) return -1;
+          return b.olfactiveNotes.localeCompare(a.olfactiveNotes, 'fr');
+
+        default:
+          return 0;
+      }
+    });
+
+    // Réorganiser les éléments dans le DOM
+    productsWithData.forEach(({ element }) => {
+      productGrid.appendChild(element);
+    });
+  }
+
+  /**
    * Updates the facet status
    * @param {Event} event - The change event
    */
@@ -659,6 +775,23 @@ class SortingFilterComponent extends Component {
 if (!customElements.get('sorting-filter-component')) {
   customElements.define('sorting-filter-component', SortingFilterComponent);
 }
+
+// Appliquer le tri personnalisé au chargement de la page si présent dans l'URL
+document.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const sortBy = urlParams.get('sort_by');
+  const customSortOptions = ['intensity_asc', 'intensity_desc', 'olfactive_notes_asc', 'olfactive_notes_desc'];
+  
+  if (sortBy && customSortOptions.includes(sortBy)) {
+    // Attendre que le DOM soit complètement chargé
+    setTimeout(() => {
+      const sortingFilter = document.querySelector('sorting-filter-component');
+      if (sortingFilter instanceof SortingFilterComponent) {
+        sortingFilter.sortProductsByMetafields(sortBy);
+      }
+    }, 100);
+  }
+});
 
 /**
  * @typedef {Object} FacetStatusRefs

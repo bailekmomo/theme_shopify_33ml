@@ -47,7 +47,7 @@
             "width": "fit-content",
             "custom_width": 100,
             "width_mobile": "custom",
-            "custom_width_mobile": 22,
+            "custom_width_mobile": 100,
             "height": "fit",
             "details_position": "flex-start",
             "gap": 12,
@@ -415,7 +415,7 @@
         }
       },
       "settings": {
-        "content_width": "content-center-aligned",
+        "content_width": "content-full-width",
         "desktop_media_position": "left",
         "equal_columns": false,
         "limit_details_width": false,

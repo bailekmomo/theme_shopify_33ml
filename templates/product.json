@@ -44,10 +44,10 @@
           "type": "_product-details",
           "static": true,
           "settings": {
-            "width": "fit-content",
+            "width": "custom",
             "custom_width": 100,
-            "width_mobile": "custom",
-            "custom_width_mobile": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 63,
             "height": "fit",
             "details_position": "flex-start",
             "gap": 12,

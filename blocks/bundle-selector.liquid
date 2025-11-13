@@ -15,7 +15,12 @@
     travel_pack existe?: {% if product.metafields.custom.travel_pack != blank %}OUI{% else %}NON{% endif %}<br>
     travel_pack value: {{ product.metafields.custom.travel_pack.value | json }}<br>
     Product ID: {{ product.id }}<br>
-    Product Title: {{ product.title }}
+    Product Title: {{ product.title }}<br>
+    <br>
+    <strong style="color: red;">⚠️ Les metafields sont vides !</strong><br>
+    Pour que les packs s'affichent, vous devez :<br>
+    1. Créer le metafield "bundle_discovery" (type: Liste de références produit) dans Shopify Admin<br>
+    2. Remplir ce metafield sur ce produit avec au moins 2 produits en stock
   </div>
   
   {% comment %} Bundle Découverte {% endcomment %}

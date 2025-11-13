@@ -44,7 +44,7 @@
           "type": "_product-details",
           "static": true,
           "settings": {
-            "width": "custom",
+            "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
             "custom_width_mobile": 63,
@@ -426,7 +426,7 @@
         }
       },
       "settings": {
-        "content_width": "content-full-width",
+        "content_width": "content-center-aligned",
         "desktop_media_position": "left",
         "equal_columns": false,
         "limit_details_width": false,

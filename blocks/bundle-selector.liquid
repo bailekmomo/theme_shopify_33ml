@@ -6,6 +6,18 @@
 {%- assign block_settings = block.settings -%}
 
 <div class="product-bundles-wrapper" {{ block.shopify_attributes }}>
+  {% comment %} DEBUG - À supprimer après test {% endcomment %}
+  <div style="background: #f0f0f0; padding: 10px; margin: 10px 0; border: 1px solid #ccc; font-size: 12px;">
+    <strong>DEBUG Bundle Selector:</strong><br>
+    bundle_discovery existe?: {{ product.metafields.custom.bundle_discovery != blank }}<br>
+    bundle_discovery value: {{ product.metafields.custom.bundle_discovery.value | json }}<br>
+    bundle_discovery size: {{ product.metafields.custom.bundle_discovery.value.size }}<br>
+    travel_pack existe?: {{ product.metafields.custom.travel_pack != blank }}<br>
+    travel_pack value: {{ product.metafields.custom.travel_pack.value | json }}<br>
+    Product ID: {{ product.id }}<br>
+    Product Title: {{ product.title }}
+  </div>
+  
   {% comment %} Bundle Découverte {% endcomment %}
   {% if product.metafields.custom.bundle_discovery != blank %}
     {% comment %} Compter les produits en stock {% endcomment %}

@@ -337,6 +337,16 @@
               },
               "blocks": {}
             },
+            "bundle_selector": {
+              "type": "bundle-selector",
+              "settings": {
+                "bundle_title": "Bundle Découverte (Pack de 3)",
+                "bundle_description": "Ajoutez 2 autres parfums pour découvrir notre collection",
+                "travel_title": "Pack Voyageur",
+                "travel_description": "Format pratique pour vos déplacements"
+              },
+              "blocks": {}
+            },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
               "settings": {
@@ -408,6 +418,7 @@
             "custom_liquid_qdkWzq",
             "accordion_qCeGmN",
             "text_gXMUag",
+            "bundle_selector",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
             "payment_icons_KEjVtj"

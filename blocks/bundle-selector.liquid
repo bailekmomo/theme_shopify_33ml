@@ -29,74 +29,87 @@
       {% endif %}
     {% endfor %}
 
-    {% comment %} Afficher l'option seulement si au moins 2 produits en stock {% endcomment %}
-    {% if available_products_count >= 2 %}
-      <div class="bundle-option">
-        <input 
-          type="radio" 
-          name="product-option-{{ section.id }}" 
-          id="bundle-discovery-{{ section.id }}" 
-          class="bundle-radio"
-          value="bundle"
-        >
-        <label for="bundle-discovery-{{ section.id }}" class="bundle-label">
-          <span class="bundle-icon">🎁</span>
-          <div class="bundle-info">
-            <strong>{{ block_settings.bundle_title }}</strong>
-            <span class="bundle-description">{{ block_settings.bundle_description }}</span>
-          </div>
-        </label>
-      </div>
+    {% comment %} Afficher l'option même si moins de 2 produits en stock {% endcomment %}
+    <div class="bundle-option">
+      <input 
+        type="radio" 
+        name="product-option-{{ section.id }}" 
+        id="bundle-discovery-{{ section.id }}" 
+        class="bundle-radio"
+        value="bundle"
+      >
+      <label for="bundle-discovery-{{ section.id }}" class="bundle-label">
+        <span class="bundle-icon">🎁</span>
+        <div class="bundle-info">
+          <strong>{{ block_settings.bundle_title }}</strong>
+          <span class="bundle-description">{{ block_settings.bundle_description }}</span>
+          {% if available_products_count < 2 %}
+            <span class="bundle-warning" style="display: block; font-size: 11px; color: #d97706; margin-top: 4px;">
+              ⚠️ Moins de 2 produits disponibles
+            </span>
+          {% endif %}
+        </div>
+      </label>
+    </div>
 
-      <div id="bundle-discovery-products-{{ section.id }}" class="bundle-products hidden">
+    <div id="bundle-discovery-products-{{ section.id }}" class="bundle-products hidden">
+      {% if available_products_count < 2 %}
+        <p class="bundle-instructions" style="color: #d97706;">
+          ⚠️ Il n'y a pas assez de produits en stock pour créer le pack ({{ available_products_count }} disponible{{ available_products_count | pluralize: '', 's' }} sur {{ product.metafields.custom.bundle_discovery.value.size }}).
+        </p>
+      {% else %}
         <p class="bundle-instructions">Sélectionnez 2 parfums supplémentaires :</p>
-        <div class="bundle-grid">
-          {% for product_ref in product.metafields.custom.bundle_discovery.value %}
-            {% assign variant = product_ref.selected_or_first_available_variant %}
-            {% assign is_available = false %}
-            
-            {% if variant.inventory_management == 'shopify' %}
-              {% if variant.inventory_quantity > 0 or variant.inventory_policy == 'continue' %}
-                {% assign is_available = true %}
-              {% endif %}
-            {% else %}
-              {% if variant != null %}
-                {% assign is_available = true %}
-              {% endif %}
+      {% endif %}
+      <div class="bundle-grid">
+        {% for product_ref in product.metafields.custom.bundle_discovery.value %}
+          {% assign variant = product_ref.selected_or_first_available_variant %}
+          {% assign is_available = false %}
+          
+          {% if variant.inventory_management == 'shopify' %}
+            {% if variant.inventory_quantity > 0 or variant.inventory_policy == 'continue' %}
+              {% assign is_available = true %}
             {% endif %}
-            
-            {% comment %} Afficher uniquement les produits en stock {% endcomment %}
-            {% if is_available %}
-              <div class="bundle-product-card">
-                <input 
-                  type="checkbox" 
-                  id="bundle-product-{{ product_ref.id }}-{{ section.id }}" 
-                  class="bundle-checkbox"
-                  data-product-id="{{ product_ref.id }}"
-                  data-variant-id="{{ variant.id }}"
-                  data-price="{{ product_ref.price }}"
-                >
-                <label for="bundle-product-{{ product_ref.id }}-{{ section.id }}">
-                  {% if product_ref.featured_image %}
-                    <img src="{{ product_ref.featured_image | img_url: 'small' }}" alt="{{ product_ref.title }}" loading="lazy">
-                  {% endif %}
-                  <div class="bundle-product-info">
-                    <h4>{{ product_ref.title }}</h4>
-                    <p class="price">{{ product_ref.price | money }}</p>
-                  </div>
-                </label>
-              </div>
+          {% else %}
+            {% if variant != null %}
+              {% assign is_available = true %}
             {% endif %}
-          {% endfor %}
-        </div>
-        <div class="bundle-total" id="bundle-total-{{ section.id }}" data-main-product-price="{{ product.price }}">
-          <strong>Prix total du pack :</strong> <span class="bundle-total-price">{{ product.price | money }}</span>
-        </div>
-        <button type="button" class="button button--primary add-bundle-btn" disabled data-section-id="{{ section.id }}">
-          Ajouter le Bundle Découverte
-        </button>
+          {% endif %}
+          
+          {% comment %} Afficher uniquement les produits en stock {% endcomment %}
+          {% if is_available %}
+            <div class="bundle-product-card">
+              <input 
+                type="checkbox" 
+                id="bundle-product-{{ product_ref.id }}-{{ section.id }}" 
+                class="bundle-checkbox"
+                data-product-id="{{ product_ref.id }}"
+                data-variant-id="{{ variant.id }}"
+                data-price="{{ product_ref.price }}"
+              >
+              <label for="bundle-product-{{ product_ref.id }}-{{ section.id }}">
+                {% if product_ref.featured_image %}
+                  <img src="{{ product_ref.featured_image | img_url: 'small' }}" alt="{{ product_ref.title }}" loading="lazy">
+                {% endif %}
+                <div class="bundle-product-info">
+                  <h4>{{ product_ref.title }}</h4>
+                  <p class="price">{{ product_ref.price | money }}</p>
+                </div>
+              </label>
+            </div>
+          {% endif %}
+        {% endfor %}
       </div>
-    {% endif %}
+      <div class="bundle-total" id="bundle-total-{{ section.id }}" data-main-product-price="{{ product.price }}">
+        <strong>Prix total du pack :</strong> <span class="bundle-total-price">{{ product.price | money }}</span>
+      </div>
+      <button type="button" class="button button--primary add-bundle-btn" {% if available_products_count < 2 %}disabled{% endif %} data-section-id="{{ section.id }}">
+        {% if available_products_count < 2 %}
+          Pack indisponible ({{ available_products_count }} produit{{ available_products_count | pluralize: '', 's' }} disponible{{ available_products_count | pluralize: '', 's' }})
+        {% else %}
+          Ajouter le Bundle Découverte
+        {% endif %}
+      </button>
+    </div>
   {% endif %}
 
   {% comment %} Pack Voyageur {% endcomment %}

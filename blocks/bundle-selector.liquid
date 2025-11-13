@@ -8,52 +8,95 @@
 <div class="product-bundles-wrapper" {{ block.shopify_attributes }}>
   {% comment %} Bundle Découverte {% endcomment %}
   {% if product.metafields.custom.bundle_discovery != blank %}
-    <div class="bundle-option">
-      <input 
-        type="radio" 
-        name="product-option-{{ section.id }}" 
-        id="bundle-discovery-{{ section.id }}" 
-        class="bundle-radio"
-        value="bundle"
-      >
-      <label for="bundle-discovery-{{ section.id }}" class="bundle-label">
-        <span class="bundle-icon">🎁</span>
-        <div class="bundle-info">
-          <strong>{{ block_settings.bundle_title }}</strong>
-          <span class="bundle-description">{{ block_settings.bundle_description }}</span>
-        </div>
-      </label>
-    </div>
+    {% comment %} Compter les produits en stock {% endcomment %}
+    {% assign available_products_count = 0 %}
+    {% for product_ref in product.metafields.custom.bundle_discovery.value %}
+      {% assign variant = product_ref.selected_or_first_available_variant %}
+      {% assign is_available = false %}
+      
+      {% if variant.inventory_management == 'shopify' %}
+        {% if variant.inventory_quantity > 0 or variant.inventory_policy == 'continue' %}
+          {% assign is_available = true %}
+        {% endif %}
+      {% else %}
+        {% if variant != null %}
+          {% assign is_available = true %}
+        {% endif %}
+      {% endif %}
+      
+      {% if is_available %}
+        {% assign available_products_count = available_products_count | plus: 1 %}
+      {% endif %}
+    {% endfor %}
 
-    <div id="bundle-discovery-products-{{ section.id }}" class="bundle-products hidden">
-      <p class="bundle-instructions">Sélectionnez 2 parfums supplémentaires :</p>
-      <div class="bundle-grid">
-        {% for product_ref in product.metafields.custom.bundle_discovery.value %}
-          <div class="bundle-product-card">
-            <input 
-              type="checkbox" 
-              id="bundle-product-{{ product_ref.id }}-{{ section.id }}" 
-              class="bundle-checkbox"
-              data-product-id="{{ product_ref.id }}"
-              data-variant-id="{{ product_ref.selected_or_first_available_variant.id }}"
-              data-price="{{ product_ref.price }}"
-            >
-            <label for="bundle-product-{{ product_ref.id }}-{{ section.id }}">
-              {% if product_ref.featured_image %}
-                <img src="{{ product_ref.featured_image | img_url: 'small' }}" alt="{{ product_ref.title }}" loading="lazy">
-              {% endif %}
-              <div class="bundle-product-info">
-                <h4>{{ product_ref.title }}</h4>
-                <p class="price">{{ product_ref.price | money }}</p>
-              </div>
-            </label>
+    {% comment %} Afficher l'option seulement si au moins 2 produits en stock {% endcomment %}
+    {% if available_products_count >= 2 %}
+      <div class="bundle-option">
+        <input 
+          type="radio" 
+          name="product-option-{{ section.id }}" 
+          id="bundle-discovery-{{ section.id }}" 
+          class="bundle-radio"
+          value="bundle"
+        >
+        <label for="bundle-discovery-{{ section.id }}" class="bundle-label">
+          <span class="bundle-icon">🎁</span>
+          <div class="bundle-info">
+            <strong>{{ block_settings.bundle_title }}</strong>
+            <span class="bundle-description">{{ block_settings.bundle_description }}</span>
           </div>
-        {% endfor %}
+        </label>
       </div>
-      <button type="button" class="button button--primary add-bundle-btn" disabled data-section-id="{{ section.id }}">
-        Ajouter le Bundle Découverte
-      </button>
-    </div>
+
+      <div id="bundle-discovery-products-{{ section.id }}" class="bundle-products hidden">
+        <p class="bundle-instructions">Sélectionnez 2 parfums supplémentaires :</p>
+        <div class="bundle-grid">
+          {% for product_ref in product.metafields.custom.bundle_discovery.value %}
+            {% assign variant = product_ref.selected_or_first_available_variant %}
+            {% assign is_available = false %}
+            
+            {% if variant.inventory_management == 'shopify' %}
+              {% if variant.inventory_quantity > 0 or variant.inventory_policy == 'continue' %}
+                {% assign is_available = true %}
+              {% endif %}
+            {% else %}
+              {% if variant != null %}
+                {% assign is_available = true %}
+              {% endif %}
+            {% endif %}
+            
+            {% comment %} Afficher uniquement les produits en stock {% endcomment %}
+            {% if is_available %}
+              <div class="bundle-product-card">
+                <input 
+                  type="checkbox" 
+                  id="bundle-product-{{ product_ref.id }}-{{ section.id }}" 
+                  class="bundle-checkbox"
+                  data-product-id="{{ product_ref.id }}"
+                  data-variant-id="{{ variant.id }}"
+                  data-price="{{ product_ref.price }}"
+                >
+                <label for="bundle-product-{{ product_ref.id }}-{{ section.id }}">
+                  {% if product_ref.featured_image %}
+                    <img src="{{ product_ref.featured_image | img_url: 'small' }}" alt="{{ product_ref.title }}" loading="lazy">
+                  {% endif %}
+                  <div class="bundle-product-info">
+                    <h4>{{ product_ref.title }}</h4>
+                    <p class="price">{{ product_ref.price | money }}</p>
+                  </div>
+                </label>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="bundle-total" id="bundle-total-{{ section.id }}" data-main-product-price="{{ product.price }}">
+          <strong>Prix total du pack :</strong> <span class="bundle-total-price">{{ product.price | money }}</span>
+        </div>
+        <button type="button" class="button button--primary add-bundle-btn" disabled data-section-id="{{ section.id }}">
+          Ajouter le Bundle Découverte
+        </button>
+      </div>
+    {% endif %}
   {% endif %}
 
   {% comment %} Pack Voyageur {% endcomment %}
@@ -320,6 +363,20 @@
     border: 1px solid rgba(var(--color-foreground), 0.08);
   }
 
+  .bundle-total {
+    text-align: right;
+    font-size: 18px;
+    padding: 16px;
+    background: rgba(var(--color-background), 1);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .bundle-total-price {
+    color: rgba(var(--color-foreground), 0.9);
+  }
+
   .add-bundle-btn,
   .add-travel-pack-btn {
     width: 100%;
@@ -358,14 +415,68 @@
     // Gérer la sélection des produits bundle découverte
     const bundleCheckboxes = document.querySelectorAll(`#bundle-discovery-products-${sectionId} .bundle-checkbox`);
     const addBundleBtn = document.querySelector(`#bundle-discovery-products-${sectionId} .add-bundle-btn`);
+    const bundleTotalPrice = document.querySelector(`#bundle-total-${sectionId} .bundle-total-price`);
+    
+    // Fonction pour calculer le prix total
+    function calculateBundleTotal() {
+      if (!bundleTotalPrice) return;
+      
+      // Récupérer le prix du produit principal depuis l'attribut data
+      const bundleTotalDiv = document.getElementById(`bundle-total-${sectionId}`);
+      let mainProductPrice = 0;
+      
+      if (bundleTotalDiv && bundleTotalDiv.dataset.mainProductPrice) {
+        mainProductPrice = parseFloat(bundleTotalDiv.dataset.mainProductPrice) || 0;
+      } else {
+        // Fallback : essayer de récupérer depuis le DOM
+        const priceElement = document.querySelector('.product-price__current, [data-product-price], product-price');
+        if (priceElement) {
+          const priceText = priceElement.textContent || priceElement.innerText;
+          // Extraire le nombre (gérer les formats avec virgule ou point)
+          const priceMatch = priceText.match(/[\d\s,]+\.?\d*/);
+          if (priceMatch) {
+            const priceValue = priceMatch[0].replace(/[\s,]/g, '').replace(',', '.');
+            mainProductPrice = parseFloat(priceValue) * 100; // Convertir en centimes
+          }
+        }
+      }
+      
+      // Calculer le prix des produits sélectionnés
+      const checkedBoxes = document.querySelectorAll(`#bundle-discovery-products-${sectionId} .bundle-checkbox:checked`);
+      let selectedProductsPrice = 0;
+      
+      checkedBoxes.forEach(box => {
+        const price = parseFloat(box.dataset.price) || 0;
+        selectedProductsPrice += price;
+      });
+      
+      // Calculer le total (les prix sont déjà en centimes)
+      const totalPrice = mainProductPrice + selectedProductsPrice;
+      
+      // Formater le prix en euros
+      const priceInEuros = totalPrice / 100;
+      
+      // Mettre à jour l'affichage avec formatage monétaire français
+      bundleTotalPrice.textContent = new Intl.NumberFormat('fr-FR', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2
+      }).format(priceInEuros);
+    }
     
     if (bundleCheckboxes.length > 0 && addBundleBtn) {
       bundleCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
           const checkedCount = document.querySelectorAll(`#bundle-discovery-products-${sectionId} .bundle-checkbox:checked`).length;
           addBundleBtn.disabled = checkedCount !== 2;
+          
+          // Mettre à jour le prix total
+          calculateBundleTotal();
         });
       });
+      
+      // Calculer le prix initial au chargement
+      calculateBundleTotal();
 
       // Ajouter le bundle découverte au panier
       addBundleBtn.addEventListener('click', function() {

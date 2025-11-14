@@ -328,9 +328,25 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "jumbo_text_iNgjrc": {
+              "type": "jumbo-text",
+              "name": "t:names.jumbo_text",
+              "settings": {
+                "text": "Find Your Perfume.",
+                "font": "heading",
+                "alignment": "left",
+                "line_height": "0.8",
+                "letter_spacing": "-0.03em",
+                "case": "none",
+                "text_effect": "none",
+                "animation_repeat": false
+              },
+              "blocks": {}
+            },
             "text_W39txa": {
               "type": "text",
               "name": "t:names.text",
+              "disabled": true,
               "settings": {
                 "text": "<h3>Shop by collection</h3>",
                 "width": "fit-content",
@@ -356,6 +372,7 @@
             }
           },
           "block_order": [
+            "jumbo_text_iNgjrc",
             "text_W39txa"
           ]
         },

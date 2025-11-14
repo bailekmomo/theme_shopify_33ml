@@ -37,10 +37,37 @@
             "padding-inline-end": 0
           },
           "blocks": {}
+        },
+        "text_CAEVYW": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p><strong>Découvrir les parfums 33 ml, c’est entrer dans une nouvelle ère où le luxe devient enfin accessible à tous.</strong><br/><br/>Longtemps réservé à une élite, le parfum de haute qualité se réinvente aujourd’hui grâce à un format plus léger, plus flexible et surtout plus abordable. Les flacons de 33 ml permettent d’explorer des univers olfactifs variés sans compromis sur la sophistication ou l’élégance.</p><p>Ce format ouvre la porte à une vraie liberté : tester plusieurs fragrances selon son humeur, son style ou les saisons, sans devoir investir dans un flacon classique souvent coûteux. Les marques qui adoptent le 33 ml contribuent à <strong>la démocratisation du luxe</strong>, en rendant l’expérience olfactive haut de gamme à la portée de chacun.</p><p>C’est bien plus qu’une simple tendance : c’est une révolution dans notre manière de consommer le parfum. Une invitation à découvrir, oser, et s’approprier le luxe à son rythme, sans excès et avec plaisir. Le 33 ml devient alors un symbole moderne : celui d’un luxe ouvert, intelligent et accessible.</p>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "heading"
+        "heading",
+        "text_CAEVYW"
       ],
       "settings": {
         "content_direction": "column",

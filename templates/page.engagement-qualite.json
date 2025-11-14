@@ -28,7 +28,7 @@
           "static": true,
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/Gemini_Generated_Image_q957sgq957sgq957.png",
+            "image": "shopify://shop_images/f369a79f-aed0-4351-a241-d0a59f522b75_f8d4c570-8b3f-410e-805c-01c1a0e75701.png",
             "link": "",
             "video_loop": true,
             "video_autoplay": false,
@@ -86,7 +86,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p>Notre Philosophie : la beauté dans la simplicité, l’excellence dans chaque détail</p>",
+            "text": "<p>Engagement Qualité : l’intensité au cœur de chaque parfum</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -112,7 +112,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>Notre philosophie repose sur une conviction profonde : <strong>le luxe véritable n’est pas une question de prix, mais une question d’intention</strong>. Ce qui compte, c’est la manière dont les choses sont faites, la passion qui les anime, et l’émotion qu’elles transmettent.</p><p>Nous croyons en un luxe <strong>authentique, honnête et accessible</strong>, un luxe qui respecte la matière, le temps et le savoir-faire. Nous choisissons de travailler avec exigence, de valoriser le geste artisanal, et de proposer des créations qui allient qualité, modernité et simplicité.</p><p>Pour nous, chaque détail a un sens. Chaque fragrance, chaque texture, chaque finition est pensée pour offrir une expérience unique, intime et vraie. Nous refusons l’artifice. Nous privilégions l’essentiel : le plaisir, la beauté, la sensorialité.</p><p>Notre philosophie, c’est aussi une vision plus humaine du luxe :</p><ul><li>un luxe qui rapproche plutôt qu’il ne divise,<br/></li><li>un luxe qui se vit au quotidien,<br/></li><li>un luxe qui permet d’exprimer sa singularité sans compromis.<br/></li></ul><p>Nous avançons avec l’idée qu’un produit doit être ressenti, pas seulement consommé. Qu’il doit révéler une émotion, raconter une histoire, et accompagner ceux qui le choisissent avec élégance et simplicité.</p><p><strong>Notre philosophie : créer avec passion, partager avec générosité, et offrir à chacun la possibilité d’accéder à l’essence du beau.</strong></p>",
+            "text": "<p>Notre priorité absolue est de garantir une qualité irréprochable, perceptible dès la première vaporisation. Nous sélectionnons des essences raffinées et hautement concentrées afin d’offrir des parfums à l’<strong>intensité riche, profonde et durable</strong>.</p><p>Chaque fragrance est formulée avec une concentration élevée — privilégiant des compositions proches de l’<strong>eau de parfum</strong>, reconnue pour sa <strong>longue tenue</strong> et son sillage élégant. Cette intensité maîtrisée permet à nos parfums de s’exprimer pleinement, de révéler leurs notes les plus subtiles et de rester présents sur la peau tout au long de la journée.</p><p>Notre engagement repose sur trois piliers :</p><ul><li><strong>Pureté des ingrédients</strong> : des matières premières soigneusement sélectionnées pour leur qualité olfactive.<br/></li><li><strong>Concentration optimale</strong> : des formules intensives permettant un parfum riche et durable, sans être agressif.<br/></li><li><strong>Contrôle rigoureux</strong> : chaque parfum est testé et vérifié pour garantir une stabilité, une tenue et un sillage constants.<br/></li></ul><p>Nous avons fait le choix d’une qualité sans compromis, afin que chaque flacon devienne une expérience sensorielle authentique, vibrante et mémorable.</p><p><strong>Parce qu’un parfum doit révéler une présence, affirmer une identité et laisser une trace… la vôtre.</strong></p>",
             "width": "100%",
             "max_width": "none",
             "alignment": "left",

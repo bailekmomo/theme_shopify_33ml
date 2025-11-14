@@ -506,7 +506,7 @@
             "icon_wbc7qN": {
               "type": "icon",
               "settings": {
-                "icon": "silhouette",
+                "icon": "star",
                 "width": 32,
                 "link": "",
                 "open_in_new_tab": false
@@ -555,7 +555,7 @@
                 "text_JxGAnG": {
                   "type": "text",
                   "settings": {
-                    "text": "<h2>A team with a goal</h2>",
+                    "text": "<h2>Luxe accessible</h2>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -580,7 +580,7 @@
                 "text_XCRBfL": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Real people making great products</p>",
+                    "text": "<p>Venez découvrir du luxe à prix accessible</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",

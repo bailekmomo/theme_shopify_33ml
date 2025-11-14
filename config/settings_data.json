@@ -28,7 +28,7 @@
     "type_case_h4": "uppercase",
     "type_case_h5": "uppercase",
     "type_case_h6": "uppercase",
-    "page_width": "narrow",
+    "page_width": "normal",
     "card_hover_effect": "subtle-zoom",
     "badge_sale_color_scheme": "scheme-1",
     "badge_font_family": "body",

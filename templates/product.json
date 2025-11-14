@@ -152,9 +152,21 @@
               },
               "blocks": {}
             },
+            "product_intensity_JkJydA": {
+              "type": "product-intensity",
+              "name": "Intensité",
+              "settings": {
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "custom_liquid_fAmTLX": {
               "type": "custom-liquid",
               "name": "t:names.custom_liquid",
+              "disabled": true,
               "settings": {
                 "custom_liquid": "{% if product.metafields.custom.intensite %}\n  <div class=\"intensity-linear-container\">\n    <div class=\"intensity-header\">\n      <span class=\"intensity-title\">INTENSITÉ</span>\n      <span class=\"intensity-value\">{{ product.metafields.custom.intensite.value }}/10</span>\n    </div>\n    \n    <div class=\"intensity-bar-wrapper\">\n      <div class=\"intensity-bar\">\n        <div class=\"intensity-fill\" style=\"--intensity-width: {{ product.metafields.custom.intensite.value | times: 10 }}%\"></div>\n      </div>\n    </div>\n\n    <div class=\"intensity-dots\">\n      {% for i in (1..10) %}\n        <span class=\"dot {% if i <= product.metafields.custom.intensite.value %}dot-filled{% endif %}\"></span>\n      {% endfor %}\n    </div>\n  </div>\n\n  <style>\n    .intensity-linear-container {\n      margin: 25px 0;\n    }\n\n    .intensity-header {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      margin-bottom: 12px;\n      font-size: 13px;\n      font-weight: 600;\n      letter-spacing: 1px;\n    }\n\n    .intensity-title {\n      color: #333;\n    }\n\n    .intensity-value {\n      color: #666;\n      font-weight: 500;\n    }\n\n    .intensity-bar-wrapper {\n      margin-bottom: 10px;\n      overflow: hidden;\n      border-radius: 4px;\n    }\n\n    .intensity-bar {\n      width: 100%;\n      height: 8px;\n      background-color: #e8e8e8;\n      border-radius: 4px;\n      overflow: hidden;\n    }\n\n    .intensity-fill {\n      height: 100%;\n      width: 0%;\n      background: linear-gradient(90deg, #333 0%, #333 100%);\n      border-radius: 4px;\n      animation: growBar 1s ease-out forwards;\n      animation-delay: 0.2s;\n    }\n\n    @keyframes growBar {\n      from {\n        width: 0%;\n      }\n      to {\n        width: var(--intensity-width);\n      }\n    }\n\n    .intensity-dots {\n      display: flex;\n      gap: 6px;\n      justify-content: space-between;\n    }\n\n    .dot {\n      width: 6px;\n      height: 6px;\n      border-radius: 50%;\n      background-color: #d3d3d3;\n      transition: background-color 0.3s ease;\n      opacity: 0;\n      animation: fadeDot 0.5s ease-out forwards;\n    }\n\n    .dot:nth-child(1) { animation-delay: 0.3s; }\n    .dot:nth-child(2) { animation-delay: 0.35s; }\n    .dot:nth-child(3) { animation-delay: 0.4s; }\n    .dot:nth-child(4) { animation-delay: 0.45s; }\n    .dot:nth-child(5) { animation-delay: 0.5s; }\n    .dot:nth-child(6) { animation-delay: 0.55s; }\n    .dot:nth-child(7) { animation-delay: 0.6s; }\n    .dot:nth-child(8) { animation-delay: 0.65s; }\n    .dot:nth-child(9) { animation-delay: 0.7s; }\n    .dot:nth-child(10) { animation-delay: 0.75s; }\n\n    @keyframes fadeDot {\n      from {\n        opacity: 0;\n        transform: scale(0.5);\n      }\n      to {\n        opacity: 1;\n        transform: scale(1);\n      }\n    }\n\n    .dot-filled {\n      background-color: #333;\n    }\n\n    @media (max-width: 768px) {\n      .intensity-header {\n        font-size: 12px;\n      }\n\n      .intensity-bar {\n        height: 6px;\n      }\n\n      .dot {\n        width: 5px;\n        height: 5px;\n      }\n    }\n  </style>\n{% endif %}"
               },
@@ -415,6 +427,7 @@
             "text_tefwj7",
             "reviews",
             "price_a7krng",
+            "product_intensity_JkJydA",
             "custom_liquid_fAmTLX",
             "custom_liquid_qdkWzq",
             "accordion_qCeGmN",

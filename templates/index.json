@@ -129,7 +129,7 @@
       ],
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/Gemini_Generated_Image_3ump73ump73ump73.png",
+        "image_1": "shopify://shop_images/Gemini_Generated_Image_xgxqmexgxqmexgxq.png",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,
@@ -146,7 +146,7 @@
         "vertical_alignment_flex_direction_column": "flex-end",
         "gap": 18,
         "section_width": "page-width",
-        "section_height": "medium",
+        "section_height": "full-screen",
         "section_height_custom": 50,
         "color_scheme": "scheme-4",
         "toggle_overlay": false,

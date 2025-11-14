@@ -102,10 +102,11 @@
               },
               "blocks": {}
             },
-            "button_nazDaa": {
+            "button_g9xrjP": {
               "type": "button",
+              "name": "t:names.button",
               "settings": {
-                "label": "Découvrir",
+                "label": "Shop now",
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
                 "style_class": "button",
@@ -120,7 +121,7 @@
           "block_order": [
             "text_KxeJ6r",
             "text_UWtCWt",
-            "button_nazDaa"
+            "button_g9xrjP"
           ]
         }
       },

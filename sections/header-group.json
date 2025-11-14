@@ -65,7 +65,7 @@
         "localization_row": "top",
         "section_width": "full-width",
         "section_height": "standard",
-        "enable_sticky_header": "never",
+        "enable_sticky_header": "always",
         "divider_width": 0,
         "divider_size": "page-width",
         "border_width": 0,

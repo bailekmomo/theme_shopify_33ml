@@ -339,6 +339,7 @@
             },
             "bundle_selector": {
               "type": "bundle-selector",
+              "disabled": true,
               "settings": {
                 "bundle_title": "Bundle Découverte (Pack de 3)",
                 "bundle_description": "Ajoutez 2 autres parfums pour découvrir notre collection",

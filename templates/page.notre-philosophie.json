@@ -50,7 +50,7 @@
               "type": "jumbo-text",
               "name": "t:names.jumbo_text",
               "settings": {
-                "text": "Notre \nHistoire",
+                "text": "Notre \nPhilosophie",
                 "font": "heading",
                 "alignment": "right",
                 "line_height": "0.8",
@@ -86,7 +86,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p>Notre histoire : quand la passion rencontre l’excellence</p>",
+            "text": "<p>Notre Philosophie : la beauté dans la simplicité, l’excellence dans chaque détail</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -112,7 +112,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>Notre histoire commence avec une idée simple : <strong>rendre le beau, le bon et l’authentique accessibles à tous</strong>. Animés par la conviction que le luxe ne doit pas être un privilège mais une expérience partagée, nous avons décidé de créer une marque où chaque détail compte, où chaque création porte en elle une intention, une émotion, un savoir-faire.</p><p>Tout est parti d’une passion : celle des matières nobles, des fragrances uniques, des gestes d’artisans qui travaillent avec le cœur. Nous avons parcouru ateliers, laboratoires et maisons de création pour comprendre, apprendre et imaginer un univers qui nous ressemble : <strong>un univers où la qualité prime toujours, mais jamais au détriment de l’accessibilité</strong>.</p><p>Ce qui nous anime encore aujourd’hui, c’est ce désir de rapprocher les gens du luxe authentique, de leur permettre de découvrir, d’explorer, d’affirmer leur singularité. Chaque produit que nous créons est pensé pour être plus qu’un simple objet : un compagnon du quotidien, une signature, une émotion.</p><p>Notre histoire est celle d’une évolution, mais aussi d’une fidélité :</p><ul><li>fidélité aux artisans qui perpétuent leur savoir-faire,<br/></li><li>fidélité aux matières qui racontent un voyage,<br/></li><li>fidélité à vous, qui donnez vie à notre vision.<br/></li></ul><p>Nous avançons avec la certitude que la beauté se trouve dans les détails, que la simplicité peut être luxueuse, et que l’authenticité sera toujours moderne.<br/><br/><strong>Notre histoire, c’est la vôtre. Et ce n’est que le début.</strong></p>",
+            "text": "<p>Notre philosophie repose sur une conviction profonde : <strong>le luxe véritable n’est pas une question de prix, mais une question d’intention</strong>. Ce qui compte, c’est la manière dont les choses sont faites, la passion qui les anime, et l’émotion qu’elles transmettent.</p><p>Nous croyons en un luxe <strong>authentique, honnête et accessible</strong>, un luxe qui respecte la matière, le temps et le savoir-faire. Nous choisissons de travailler avec exigence, de valoriser le geste artisanal, et de proposer des créations qui allient qualité, modernité et simplicité.</p><p>Pour nous, chaque détail a un sens. Chaque fragrance, chaque texture, chaque finition est pensée pour offrir une expérience unique, intime et vraie. Nous refusons l’artifice. Nous privilégions l’essentiel : le plaisir, la beauté, la sensorialité.</p><p>Notre philosophie, c’est aussi une vision plus humaine du luxe :</p><ul><li>un luxe qui rapproche plutôt qu’il ne divise,<br/></li><li>un luxe qui se vit au quotidien,<br/></li><li>un luxe qui permet d’exprimer sa singularité sans compromis.<br/></li></ul><p>Nous avançons avec l’idée qu’un produit doit être ressenti, pas seulement consommé. Qu’il doit révéler une émotion, raconter une histoire, et accompagner ceux qui le choisissent avec élégance et simplicité.</p><p><strong>Notre philosophie : créer avec passion, partager avec générosité, et offrir à chacun la possibilité d’accéder à l’essence du beau.</strong></p>",
             "width": "100%",
             "max_width": "none",
             "alignment": "left",

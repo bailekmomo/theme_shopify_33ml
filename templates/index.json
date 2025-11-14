@@ -199,7 +199,13 @@
       },
       "name": "t:names.collection_links_spotlight",
       "settings": {
-        "collection_list": [],
+        "collection_list": [
+          "note-agrume",
+          "note-boisee",
+          "note-chocolat",
+          "note-florale",
+          "note-orientale"
+        ],
         "layout": "spotlight",
         "section_width": "page-width",
         "alignment": "left",

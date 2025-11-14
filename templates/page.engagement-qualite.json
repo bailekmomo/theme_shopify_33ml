@@ -50,10 +50,10 @@
               "type": "jumbo-text",
               "name": "t:names.jumbo_text",
               "settings": {
-                "text": "Engagement \nQualité",
+                "text": "Engagement\nQualité",
                 "font": "heading",
                 "alignment": "right",
-                "line_height": "0.8",
+                "line_height": "1",
                 "letter_spacing": "-0.03em",
                 "case": "uppercase",
                 "text_effect": "blur",

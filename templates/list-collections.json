@@ -102,6 +102,7 @@
         "group_VFTCct": {
           "type": "group",
           "name": "t:names.group",
+          "disabled": true,
           "settings": {
             "content_direction": "row",
             "vertical_on_mobile": true,

@@ -89,7 +89,7 @@
             "link": "",
             "video_loop": true,
             "video_autoplay": false,
-            "image_position": "cover",
+            "image_position": "contain",
             "video_position": "cover"
           },
           "blocks": {}
@@ -129,7 +129,7 @@
         "media_position": "right",
         "media_width": "medium",
         "media_height": "60svh",
-        "section_width": "full-width",
+        "section_width": "page-width",
         "extend_media": true,
         "color_scheme": "scheme-3",
         "padding-block-start": 0,

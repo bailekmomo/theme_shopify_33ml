@@ -3,6 +3,17 @@
   assign product_resource = closest.product | default: product
 -%}
 {%- if product_resource.metafields.custom.intensite -%}
+  {%- liquid
+    # Convertir l'intensité de 1-10 vers 1-5
+    assign intensity_value = product_resource.metafields.custom.intensite.value | times: 1.0
+    assign intensity_on_5 = intensity_value | divided_by: 2.0 | round
+    # S'assurer que la valeur est entre 1 et 5
+    if intensity_on_5 < 1
+      assign intensity_on_5 = 1
+    elsif intensity_on_5 > 5
+      assign intensity_on_5 = 5
+    endif
+  -%}
   <div 
     class="intensity-linear-container spacing-style"
     style="{% render 'spacing-style', settings: block.settings %}"
@@ -10,18 +21,12 @@
   >
     <div class="intensity-header">
       <span class="intensity-title">INTENSITÉ</span>
-      <span class="intensity-value">{{ product_resource.metafields.custom.intensite.value }}/10</span>
+      <span class="intensity-value">{{ intensity_on_5 }}/5</span>
     </div>
     
-    <div class="intensity-bar-wrapper">
-      <div class="intensity-bar">
-        <div class="intensity-fill" style="--intensity-width: {{ product_resource.metafields.custom.intensite.value | times: 10 }}%"></div>
-      </div>
-    </div>
-    
-    <div class="intensity-dots">
-      {% for i in (1..10) %}
-        <span class="dot {% if i <= product_resource.metafields.custom.intensite.value %}dot-filled{% endif %}"></span>
+    <div class="intensity-segments">
+      {% for i in (1..5) %}
+        <span class="segment {% if i <= intensity_on_5 %}segment-filled{% endif %}"></span>
       {% endfor %}
     </div>
   </div>
@@ -62,109 +67,96 @@
     font-weight: 500;
   }
   
-  .intensity-bar-wrapper {
-    margin-bottom: 10px;
-    overflow: hidden;
-    border-radius: 4px;
+  /* Conteneur des 5 segments */
+  .intensity-segments {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    height: 40px;
   }
   
-  .product-card .intensity-bar-wrapper {
-    margin-bottom: 6px;
+  .product-card .intensity-segments {
+    height: 30px;
+    gap: 6px;
   }
   
-  .intensity-bar {
-    width: 100%;
-    height: 8px;
+  /* Chaque segment individuel */
+  .segment {
+    flex: 1;
     background-color: #e8e8e8;
-    border-radius: 4px;
-    overflow: hidden;
+    border-radius: 3px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    animation: growSegment 0.5s ease-out forwards;
   }
   
-  .product-card .intensity-bar {
-    height: 6px;
+  /* Hauteurs croissantes pour effet de jauge graduée */
+  .segment:nth-child(1) {
+    height: 20%;
+    animation-delay: 0.1s;
   }
   
-  .intensity-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #333 0%, #333 100%);
-    border-radius: 4px;
-    animation: growBar 1s ease-out forwards;
+  .segment:nth-child(2) {
+    height: 40%;
     animation-delay: 0.2s;
   }
   
-  @keyframes growBar {
-    from {
-      width: 0%;
-    }
-    to {
-      width: var(--intensity-width);
-    }
+  .segment:nth-child(3) {
+    height: 60%;
+    animation-delay: 0.3s;
   }
   
-  .intensity-dots {
-    display: flex;
-    gap: 6px;
-    justify-content: space-between;
+  .segment:nth-child(4) {
+    height: 80%;
+    animation-delay: 0.4s;
   }
   
-  .product-card .intensity-dots {
-    gap: 4px;
+  .segment:nth-child(5) {
+    height: 100%;
+    animation-delay: 0.5s;
   }
   
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #d3d3d3;
-    transition: background-color 0.3s ease;
-    opacity: 0;
-    animation: fadeDot 0.5s ease-out forwards;
-  }
-  
-  .product-card .dot {
-    width: 5px;
-    height: 5px;
-  }
-  
-  .dot:nth-child(1) { animation-delay: 0.3s; }
-  .dot:nth-child(2) { animation-delay: 0.35s; }
-  .dot:nth-child(3) { animation-delay: 0.4s; }
-  .dot:nth-child(4) { animation-delay: 0.45s; }
-  .dot:nth-child(5) { animation-delay: 0.5s; }
-  .dot:nth-child(6) { animation-delay: 0.55s; }
-  .dot:nth-child(7) { animation-delay: 0.6s; }
-  .dot:nth-child(8) { animation-delay: 0.65s; }
-  .dot:nth-child(9) { animation-delay: 0.7s; }
-  .dot:nth-child(10) { animation-delay: 0.75s; }
-  
-  @keyframes fadeDot {
+  /* Animation d'apparition des segments */
+  @keyframes growSegment {
     from {
       opacity: 0;
-      transform: scale(0.5);
+      transform: scaleY(0);
     }
     to {
       opacity: 1;
-      transform: scale(1);
+      transform: scaleY(1);
     }
   }
   
-  .dot-filled {
+  /* Segment rempli (actif) */
+  .segment-filled {
     background-color: #333;
   }
   
+  /* Effet hover sur le conteneur */
+  .intensity-linear-container:hover .segment {
+    transform: scaleY(1.05);
+  }
+  
+  .intensity-linear-container:hover .segment-filled {
+    background-color: #000;
+  }
+  
+  /* Responsive mobile */
   @media (max-width: 768px) {
     .intensity-header {
       font-size: 12px;
     }
     
-    .intensity-bar {
-      height: 6px;
+    .intensity-segments {
+      height: 30px;
+      gap: 5px;
     }
     
-    .dot {
-      width: 5px;
-      height: 5px;
+    .segment {
+      border-radius: 2px;
     }
   }
 {% endstylesheet %}

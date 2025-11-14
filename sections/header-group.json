@@ -53,7 +53,7 @@
         "logo_position": "left",
         "menu_position": "center",
         "menu_row": "top",
-        "show_search": true,
+        "show_search": false,
         "search_position": "right",
         "search_row": "top",
         "show_country": true,

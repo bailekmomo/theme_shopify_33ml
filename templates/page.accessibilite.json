@@ -135,10 +135,100 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "section_QLpYEX": {
+      "type": "section",
+      "blocks": {
+        "text_JRrzrC": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<p>L’eau de parfum : l’équilibre parfait entre intensité et élégance</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_hTdreQ": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>L’eau de parfum, souvent abrégée <strong>EDP</strong>, occupe une place privilégiée dans l’univers de la parfumerie. Plus concentrée que l’eau de toilette et moins chargée que le parfum pur, elle représente un <strong>juste milieu idéal</strong> pour celles et ceux qui recherchent une fragrance durable, expressive et raffinée.</p><h3><strong>Une concentration qui révèle la personnalité</strong></h3><p>L’eau de parfum contient généralement entre <strong>12 % et 20 % d’huiles essentielles</strong>, ce qui lui permet d’offrir une meilleure tenue sur la peau au fil de la journée. Cette concentration plus élevée donne à la fragrance une profondeur sensorielle, permettant aux notes de tête, de cœur et de fond de se déployer progressivement.</p><p>Ainsi, porter une eau de parfum, c’est vivre une <strong>véritable évolution olfactive</strong> :</p><ul><li><br/><strong>Les notes de tête</strong> : les premières odeurs, fraîches et légères.<br/></li><li><br/><strong>Les notes de cœur</strong> : l’âme du parfum, souvent florale, épicée ou aromatique.<br/></li><li><br/><strong>Les notes de fond</strong> : les plus tenaces, boisées, ambrées ou musquées, qui laissent une empreinte durable.<br/></li></ul><h3><strong>Une tenue adaptée à la vie moderne</strong></h3><p>Grâce à sa richesse en essences parfumées, l’eau de parfum offre une <strong>longue tenue</strong>, sans être envahissante. Elle accompagne les gestes du quotidien avec subtilité : une touche derrière l’oreille, un voile sur les vêtements ou une vaporisation sur les poignets suffisent souvent à créer une signature olfactive unique.</p><p>La majorité des adeptes de parfumerie choisissent l’eau de parfum pour son <strong>rapport équilibre–élégance</strong>, car elle permet de rester parfumé toute la journée sans nécessiter de retouches excessives.</p><h3><strong>Une expression personnelle et émotionnelle</strong></h3><p>Chaque eau de parfum raconte une histoire. Elle peut exprimer une émotion, un souvenir, une facette de la personnalité. Certains y recherchent la sensualité, d’autres la fraîcheur, l’énergie ou la douceur. C’est un accessoire invisible mais puissant, capable d’affirmer une présence, de séduire ou simplement d’apporter du bien-être.</p><p>Choisir une eau de parfum, c’est finalement choisir un <strong>compagnon intime</strong>, une signature que l’on porte avec soi, un geste de soin qui relie le quotidien à l’univers du luxe et de la sensorialité.</p>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "paragraph",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_JRrzrC",
+        "text_hTdreQ"
+      ],
+      "name": "t:names.rich_text_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 25,
+        "section_width": "page-width",
+        "section_height": "small",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
     }
   },
   "order": [
     "main",
-    "media_with_content_FKyNNm"
+    "media_with_content_FKyNNm",
+    "section_QLpYEX"
   ]
 }

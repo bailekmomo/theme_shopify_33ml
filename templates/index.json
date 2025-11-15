@@ -1811,7 +1811,7 @@
               "name": "t:names.text",
               "settings": {
                 "text": "<p>Le raffinement n’est plus un privilège : il devient une expérience quotidienne, simple et accessible. Aujourd’hui, chacun peut s’entourer de beauté, d’élégance et de sensorialité sans compromis. Parce que le luxe véritable ne se mesure plus à l’extravagance, mais à la finesse d’un geste, à la qualité d’un produit, à l’émotion qu’il laisse derrière lui.</p>",
-                "width": "fit-content",
+                "width": "100%",
                 "max_width": "none",
                 "alignment": "left",
                 "type_preset": "rte",

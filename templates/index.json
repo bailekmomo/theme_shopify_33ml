@@ -270,8 +270,8 @@
         "alignment": "left",
         "image_position": "right",
         "color_scheme": "",
-        "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     },
     "divider_JmYXeL": {

@@ -838,12 +838,89 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "section_4ntAED": {
+      "type": "section",
+      "blocks": {
+        "text_NgCxWj": {
+          "type": "text",
+          "settings": {
+            "text": "<h2><strong>Ce que nous recherchons</strong></h2><p>Nous souhaitons collaborer avec des entrepreneurs possédant :</p><ul><li>un sens du service<br/></li><li>un esprit commercial<br/></li><li>une motivation à développer un projet durable<br/></li><li>une adhésion à nos valeurs d’authenticité et de qualité<br/></li></ul><p>Aucune expérience préalable n’est nécessaire : nous vous formons entièrement.</p>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "h4",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "button_pLpLPx": {
+          "type": "button",
+          "settings": {
+            "label": "Rejoignez-nous",
+            "link": "shopify://pages/contact",
+            "open_in_new_tab": false,
+            "style_class": "link",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_NgCxWj",
+        "button_pLpLPx"
+      ],
+      "name": "t:names.pull_quote",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      }
     }
   },
   "order": [
     "main",
     "section_KG38M4",
     "section_hTYBjh",
-    "section_bV9c7f"
+    "section_bV9c7f",
+    "section_4ntAED"
   ]
 }

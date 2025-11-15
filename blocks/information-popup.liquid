@@ -78,17 +78,41 @@
     margin: var(--margin-lg) 0;
   }
 
-  /* Le thème gère déjà product__callouts-items et product__callouts-item */
-  /* On ajoute juste un peu de style pour nos icônes personnalisées */
+  /* Limiter la taille des icônes pour qu'elles restent petites */
+  .product-info-callouts .product__callouts-item-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
-  .product__callouts-item-icon svg {
+  .product-info-callouts .product__callouts-item-icon svg {
     width: 100%;
     height: 100%;
+    max-width: 24px;
+    max-height: 24px;
   }
 
   .icon-elegant {
     fill: currentColor;
     stroke: currentColor;
+  }
+  
+  /* S'assurer que le texte est aligné à côté de l'icône */
+  .product-info-callouts .product__callouts-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .product-info-callouts .product__callouts-item-text {
+    flex: 1;
+  }
+  
+  .product-info-callouts .product__callouts-item-text p {
+    margin: 0;
   }
 {% endstylesheet %}
 

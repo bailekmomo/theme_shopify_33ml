@@ -58,7 +58,7 @@
         "color_scheme": "scheme-5",
         "background_media": "image",
         "video_position": "cover",
-        "background_image": "{{ collection.image }}",
+        "background_image": "shopify://shop_images/33ml-_allonge.jpg",
         "background_image_position": "cover",
         "border": "none",
         "border_width": 1,

@@ -1021,7 +1021,7 @@
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
             "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
+            "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "flex-start",
             "gap": 8,
             "width": "fill",
@@ -1056,7 +1056,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2>Choisissez votre Note</h2>",
+                "text": "<h2>NOTE</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
@@ -1082,7 +1082,7 @@
               "type": "text",
               "name": "t:names.description",
               "settings": {
-                "text": "<p>We create with intention. Our products solve real problems with clean design and honest materials.</p>",
+                "text": "<p>La note olfactive pour définir votre parfum</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
@@ -1103,11 +1103,24 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "icon_FL8T6k": {
+              "type": "icon",
+              "name": "t:names.icon",
+              "settings": {
+                "icon": "price_tag",
+                "image_upload": "shopify://shop_images/Capture_d_ecran_2025-10-30_a_14.23.12.png",
+                "width": 66,
+                "link": "",
+                "open_in_new_tab": false
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "text_6f79DP",
-            "text_LA6WkB"
+            "text_LA6WkB",
+            "icon_FL8T6k"
           ]
         },
         "group_nCQTaD": {
@@ -1119,7 +1132,7 @@
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
             "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
+            "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "flex-start",
             "gap": 8,
             "width": "fill",
@@ -1154,7 +1167,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2>Quality first</h2>",
+                "text": "<h2>Intensité</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
@@ -1180,7 +1193,7 @@
               "type": "text",
               "name": "t:names.description",
               "settings": {
-                "text": "<p>We obsess over the details and strive to deliver the best products at the best prices, every time.</p>",
+                "text": "<p>Une intensité pour tous les jour</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
@@ -1201,11 +1214,24 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "icon_66QtyB": {
+              "type": "icon",
+              "name": "t:names.icon",
+              "settings": {
+                "icon": "price_tag",
+                "image_upload": "shopify://shop_images/istockphoto-1269780331-612x612.jpg",
+                "width": 68,
+                "link": "",
+                "open_in_new_tab": false
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "text_ytrXBV",
-            "text_hbGccd"
+            "text_hbGccd",
+            "icon_66QtyB"
           ]
         },
         "group_dLrt6N": {

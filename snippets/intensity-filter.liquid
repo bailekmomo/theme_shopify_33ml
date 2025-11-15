@@ -7,7 +7,7 @@
 {%- enddoc -%}
 
 {%- liquid
-  assign intensity_max = 10
+  assign intensity_max = 5
   assign selected_max_intensity = null
   assign url_params = request.url | split: '?' | last | split: '&'
   for param in url_params

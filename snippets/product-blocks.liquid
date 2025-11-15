@@ -1,0 +1,54 @@
+{%- comment -%}
+  Pass in:
+  - blocks: section's blocks
+  - prod: product object
+  - featured_media
+  - aspect_ratio
+  - current_variant
+  - is_quick: boolean to indicate if we are rendering quick product or not. Some sections omitted if true
+  - is_featured: boolean to indicate if we are rendering featured product or not.
+  - column (optional): "left" or "right" to filter by "column_placement"
+  - price_content_type: "price" or "custom" or "hide" after checking both $0 and sold out pricing display settings
+  - custom_price_content: the translation to populate price if sold out or free, depending on logic checks and settings
+  - custom_color_key_map: { Object } An array of custom swatch color keys (names).
+  - custom_color_value_map: { Object } An array of custom swatch color values (HEX values).
+{%- endcomment -%}
+{%- capture product_url -%}{{ shop.url | append: prod.url }}{%- endcapture -%}
+
+{%- for block in blocks -%}
+  {% assign renderBlock = false %}
+  {% if column == block.settings.column_placement
+    or column == 'right'
+    and block.settings.column_placement == blank
+    or column == blank
+  %}
+    {% assign renderBlock = true %}
+  {% endif %}
+
+  {% if renderBlock == true %}
+    {%- case block.type -%}
+      {%- when '@app' -%}
+        {% render block %}
+
+      {%- when 'information_popup' -%}
+        {%- assign popup_modal_page = pages[block.settings.popup_page] -%}
+
+        {%- if block.settings.popup_text != blank -%}
+          {%
+            render 'product-block-information-popup' with
+            block: block,
+            popup_page_target: block.settings.popup_page,
+            popup_page: popup_modal_page,
+            icon: block.settings.popup_icon,
+            custom_icon_image: block.settings.custom_icon_image,
+            text: block.settings.popup_text,
+            product: prod
+          %}
+        {%- endif -%}
+
+      {%- comment -%} Add other block types here as needed {%- endcomment -%}
+
+    {%- endcase -%}
+  {% endif %}
+{%- endfor -%}
+

@@ -102,7 +102,17 @@
   id="product-card-{{ block.id }}"
   data-product-transition="{{ settings.transition_to_main_product }}"
   {% if product.metafields.custom.intensite %}
-    data-intensity="{{ product.metafields.custom.intensite.value }}"
+    {% liquid
+      # Convertir l'intensité de 1-10 vers 1-5
+      assign intensity_raw = product.metafields.custom.intensite.value | times: 1.0
+      assign intensity_converted = intensity_raw | divided_by: 2.0 | round
+      if intensity_converted < 1
+        assign intensity_converted = 1
+      elsif intensity_converted > 5
+        assign intensity_converted = 5
+      endif
+    %}
+    data-intensity="{{ intensity_converted }}"
   {% endif %}
   {% if product.metafields.custom.notes_olfactives %}
     data-olfactive-notes="{{ product.metafields.custom.notes_olfactives.value }}"

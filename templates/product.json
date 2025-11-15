@@ -123,8 +123,13 @@
               },
               "blocks": {}
             },
+            "judge_me_reviews_preview_badge_HQjUpr": {
+              "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+              "settings": {}
+            },
             "reviews": {
               "type": "review",
+              "disabled": true,
               "settings": {
                 "stars_style": "shaded",
                 "show_number": true,
@@ -440,6 +445,7 @@
           "block_order": [
             "text_97Di77",
             "text_tefwj7",
+            "judge_me_reviews_preview_badge_HQjUpr",
             "reviews",
             "price_a7krng",
             "information_popup_MqrxKU",

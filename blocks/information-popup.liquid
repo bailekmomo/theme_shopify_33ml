@@ -1,43 +1,23 @@
-{%- comment -%}
-  Renders an information popup block for product pages
 
-  Accepts:
-  - block: { Object } The block object
-  - popup_page_target: { String } The page handle
-  - popup_page: { Object } The page object
-  - icon: { String } The icon name
-  - custom_icon_image: { Object } Custom icon image
-  - text: { String } The popup trigger text
-  - product: { Object } The product object (optional, for intensity/notes display)
-
-  Usage:
-  {% render 'product-block-information-popup',
-    block: block,
-    popup_page_target: 'size-guide',
-    popup_page: page_object,
-    icon: 'ruler',
-    custom_icon_image: image_object,
-    text: 'Guide des tailles',
-    product: product
-  %}
-{%- endcomment -%}
+{% assign block_settings = block.settings %}
 
 {%- liquid
   assign show_intensity = false
   assign show_notes = false
   assign has_page_content = false
   
-  if popup_page and popup_page.content != blank
+  if block_settings.popup_page and pages[block_settings.popup_page].content != blank
     assign has_page_content = true
+    assign popup_page = pages[block_settings.popup_page]
   endif
   
-  if product and product.metafields.custom.intensite
+  if closest.product and closest.product.metafields.custom.intensite
     assign show_intensity = true
   endif
   
-  if product and product.metafields.custom.notes_olfactives
+  if closest.product and closest.product.metafields.custom.notes_olfactives
     assign show_notes = true
-    assign notes = product.metafields.custom.notes_olfactives.value
+    assign notes = closest.product.metafields.custom.notes_olfactives.value
   endif
 -%}
 
@@ -54,20 +34,20 @@
     on:click="/showDialog"
     class="product-information-popup__trigger"
     type="button"
-    aria-label="{{ text }}"
+    aria-label="{{ block_settings.popup_text }}"
   >
     <span class="product-information-popup__icon">
-      {%- if custom_icon_image != blank -%}
+      {%- if block_settings.custom_icon_image != blank -%}
         {{
-          custom_icon_image
+          block_settings.custom_icon_image
           | image_url: width: 40
-          | image_tag: loading: 'lazy', alt: text, class: 'product-information-popup__custom-icon'
+          | image_tag: loading: 'lazy', alt: block_settings.popup_text, class: 'product-information-popup__custom-icon'
         }}
-      {%- elsif icon != 'none' and icon != blank -%}
-        {% render 'icon' with icon: icon %}
+      {%- elsif block_settings.popup_icon != 'none' and block_settings.popup_icon != blank -%}
+        {% render 'icon' with icon: block_settings.popup_icon %}
       {%- endif -%}
     </span>
-    <span class="product-information-popup__text">{{ text }}</span>
+    <span class="product-information-popup__text">{{ block_settings.popup_text }}</span>
     <span class="product-information-popup__external-icon">
       {{- 'icon-external.svg' | inline_asset_content -}}
     </span>
@@ -87,7 +67,7 @@
         {%- if has_page_content -%}
           {{ popup_page.title }}
         {%- else -%}
-          {{ text }}
+          {{ block_settings.popup_text }}
         {%- endif -%}
       </h2>
       <button
@@ -105,18 +85,18 @@
         <div class="popup-intensity-section">
           <div class="intensity-header">
             <span class="intensity-title">INTENSITÉ</span>
-            <span class="intensity-value">{{ product.metafields.custom.intensite.value }}/10</span>
+            <span class="intensity-value">{{ closest.product.metafields.custom.intensite.value }}/10</span>
           </div>
           
           <div class="intensity-bar-wrapper">
             <div class="intensity-bar">
-              <div class="intensity-fill" style="--intensity-width: {{ product.metafields.custom.intensite.value | times: 10 }}%"></div>
+              <div class="intensity-fill" style="--intensity-width: {{ closest.product.metafields.custom.intensite.value | times: 10 }}%"></div>
             </div>
           </div>
 
           <div class="intensity-dots">
             {% for i in (1..10) %}
-              <span class="dot {% if i <= product.metafields.custom.intensite.value %}dot-filled{% endif %}"></span>
+              <span class="dot {% if i <= closest.product.metafields.custom.intensite.value %}dot-filled{% endif %}"></span>
             {% endfor %}
           </div>
         </div>

@@ -152,10 +152,6 @@
               },
               "blocks": {}
             },
-            "judge_me_reviews_all_reviews_text_7Tkb9i": {
-              "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_text/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-              "settings": {}
-            },
             "information_popup_MqrxKU": {
               "type": "information-popup",
               "name": "Information popup",
@@ -442,7 +438,6 @@
             "text_tefwj7",
             "reviews",
             "price_a7krng",
-            "judge_me_reviews_all_reviews_text_7Tkb9i",
             "information_popup_MqrxKU",
             "product_intensity_JkJydA",
             "custom_liquid_fAmTLX",

@@ -160,6 +160,65 @@
         "padding-block-end": 0
       }
     },
+    "media_with_content_YDqLrY": {
+      "type": "media-with-content",
+      "blocks": {
+        "media": {
+          "type": "_media-without-appearance",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "media_type": "image",
+            "link": "",
+            "video_loop": true,
+            "video_autoplay": false,
+            "image_position": "cover",
+            "video_position": "cover"
+          },
+          "blocks": {}
+        },
+        "content": {
+          "type": "_content-without-appearance",
+          "static": true,
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-end",
+            "gap": 24
+          },
+          "blocks": {
+            "jumbo_text_FYgMEw": {
+              "type": "jumbo-text",
+              "name": "t:names.jumbo_text",
+              "settings": {
+                "text": "Les\nNotes\nOlfactives",
+                "font": "heading",
+                "alignment": "right",
+                "line_height": "0.8",
+                "letter_spacing": "-0.03em",
+                "case": "uppercase",
+                "text_effect": "blur",
+                "animation_repeat": false
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "jumbo_text_FYgMEw"
+          ]
+        }
+      },
+      "name": "t:names.editorial_jumbo_text",
+      "settings": {
+        "media_position": "right",
+        "media_width": "narrow",
+        "media_height": "60svh",
+        "section_width": "full-width",
+        "extend_media": true,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "collection_links_Qa9mB3": {
       "type": "collection-links",
       "blocks": {
@@ -1886,6 +1945,7 @@
   },
   "order": [
     "hero_RkimKJ",
+    "media_with_content_YDqLrY",
     "collection_links_Qa9mB3",
     "divider_JmYXeL",
     "section_dNXwwc",

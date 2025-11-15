@@ -748,7 +748,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<p>Étape 3 — Signature du contrat de franchise</p>",
+                "text": "<p>Étape 5 — Ouverture de votre franchise</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
@@ -774,10 +774,10 @@
               "type": "text",
               "name": "t:names.description",
               "settings": {
-                "text": "<p>Vous intégrez officiellement le réseau et accédez à tous nos outils.</p>",
+                "text": "<p>Notre équipe vous accompagne pour garantir un lancement optimal.</p>",
                 "width": "100%",
                 "max_width": "normal",
-                "alignment": "center",
+                "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",

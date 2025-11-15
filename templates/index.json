@@ -1810,9 +1810,9 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Food has the power to connect generations. Whether it’s learning family recipes or the intense memories triggered by the flavors and aromas of our childhood.</p>",
+                "text": "<p>Le raffinement n’est plus un privilège : il devient une expérience quotidienne, simple et accessible. Aujourd’hui, chacun peut s’entourer de beauté, d’élégance et de sensorialité sans compromis. Parce que le luxe véritable ne se mesure plus à l’extravagance, mais à la finesse d’un geste, à la qualité d’un produit, à l’émotion qu’il laisse derrière lui.</p>",
                 "width": "fit-content",
-                "max_width": "normal",
+                "max_width": "none",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-primary--family)",

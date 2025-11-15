@@ -165,7 +165,6 @@
       "blocks": {
         "media": {
           "type": "_media-without-appearance",
-          "disabled": true,
           "static": true,
           "settings": {
             "media_type": "image",
@@ -181,7 +180,7 @@
           "type": "_content-without-appearance",
           "static": true,
           "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
+            "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "flex-end",
             "gap": 24
           },
@@ -211,9 +210,9 @@
       "settings": {
         "media_position": "right",
         "media_width": "narrow",
-        "media_height": "60svh",
-        "section_width": "full-width",
-        "extend_media": true,
+        "media_height": "50svh",
+        "section_width": "page-width",
+        "extend_media": false,
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
         "padding-block-end": 0
@@ -246,7 +245,7 @@
               "type": "_image",
               "static": true,
               "settings": {
-                "height": "large",
+                "height": "small",
                 "ratio": "square",
                 "border_radius": 10
               },
@@ -582,6 +581,7 @@
         "group_3nqeCU",
         "group_VHHFxq"
       ],
+      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "row",
@@ -613,6 +613,7 @@
     },
     "divider_yEcqfm": {
       "type": "divider",
+      "disabled": true,
       "name": "t:names.divider_section",
       "settings": {
         "color_scheme": "",
@@ -919,6 +920,7 @@
         "group_LJbPXm",
         "group_XmF7yG"
       ],
+      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "row",
@@ -944,6 +946,65 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "media_with_content_RNDgj4": {
+      "type": "media-with-content",
+      "blocks": {
+        "media": {
+          "type": "_media-without-appearance",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "media_type": "image",
+            "link": "",
+            "video_loop": true,
+            "video_autoplay": false,
+            "image_position": "cover",
+            "video_position": "cover"
+          },
+          "blocks": {}
+        },
+        "content": {
+          "type": "_content-without-appearance",
+          "static": true,
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-end",
+            "gap": 24
+          },
+          "blocks": {
+            "jumbo_text_YE9R3C": {
+              "type": "jumbo-text",
+              "name": "t:names.jumbo_text",
+              "settings": {
+                "text": "Choisissez\nVotre ...",
+                "font": "subheading",
+                "alignment": "right",
+                "line_height": "0.8",
+                "letter_spacing": "-0.03em",
+                "case": "uppercase",
+                "text_effect": "reveal",
+                "animation_repeat": false
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "jumbo_text_YE9R3C"
+          ]
+        }
+      },
+      "name": "t:names.editorial_jumbo_text",
+      "settings": {
+        "media_position": "right",
+        "media_width": "narrow",
+        "media_height": "60svh",
+        "section_width": "full-width",
+        "extend_media": true,
+        "color_scheme": "scheme-3",
         "padding-block-start": 0,
         "padding-block-end": 0
       }
@@ -995,7 +1056,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2>Intentional design</h2>",
+                "text": "<h2>Choisissez votre Note</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
@@ -1951,6 +2012,7 @@
     "section_dNXwwc",
     "divider_yEcqfm",
     "section_TkUreR",
+    "media_with_content_RNDgj4",
     "section_KLPqQx",
     "divider_q76zLG",
     "product_list_X8Q7bi",

@@ -4,12 +4,6 @@
 {%- liquid
   assign show_intensity = false
   assign show_notes = false
-  assign has_page_content = false
-  
-  if block_settings.popup_page and pages[block_settings.popup_page].content != blank
-    assign has_page_content = true
-    assign popup_page = pages[block_settings.popup_page]
-  endif
   
   if closest.product and closest.product.metafields.custom.intensite
     assign show_intensity = true
@@ -21,647 +15,112 @@
   endif
 -%}
 
-<script
-  src="{{ 'dialog.js' | asset_url }}"
-  type="module"
-></script>
-
-<dialog-component
-  class="product-information-popup product__block product__block--small"
-  {{ block.shopify_attributes }}
->
-  <button
-    on:click="/showDialog"
-    class="product-information-popup__trigger"
-    type="button"
-    aria-label="{{ block_settings.popup_text }}"
-  >
-    <span class="product-information-popup__icon">
-      {%- if block_settings.custom_icon_image != blank -%}
-        {{
-          block_settings.custom_icon_image
-          | image_url: width: 40
-          | image_tag: loading: 'lazy', alt: block_settings.popup_text, class: 'product-information-popup__custom-icon'
-        }}
-      {%- elsif block_settings.popup_icon != 'none' and block_settings.popup_icon != blank -%}
-        {% render 'icon' with icon: block_settings.popup_icon %}
-      {%- endif -%}
-    </span>
-    <span class="product-information-popup__text">{{ block_settings.popup_text }}</span>
-    <span class="product-information-popup__external-icon">
-      {{- 'icon-external.svg' | inline_asset_content -}}
-    </span>
-  </button>
-
-  <dialog
-    ref="dialog"
-    class="product-information-popup__modal dialog-modal color-{{ settings.popover_color_scheme }}"
-    scroll-lock
-    aria-labelledby="popup-{{ block.id }}-heading"
-  >
-    <div class="product-information-popup__modal-header">
-      <h2
-        id="popup-{{ block.id }}-heading"
-        class="product-information-popup__modal-title h4"
-      >
-        {%- if has_page_content -%}
-          {{ popup_page.title }}
-        {%- else -%}
-          {{ block_settings.popup_text }}
-        {%- endif -%}
-      </h2>
-      <button
-        ref="closeButton"
-        on:click="/closeDialog"
-        class="button button-unstyled close-button product-information-popup__close"
-        aria-label="{{ 'accessibility.close_dialog' | t }}"
-      >
-        {{- 'icon-close.svg' | inline_asset_content -}}
-      </button>
-    </div>
+<div class="product-info-callouts" {{ block.shopify_attributes }}>
+  <div class="product__callouts-items" data-with-box="{{ block_settings.add_box }}" data-with-dividers="{{ block_settings.add_dividers }}">
     
-    <div class="product-information-popup__modal-content">
-      {%- if show_intensity -%}
-        <div class="popup-intensity-section">
-          <div class="intensity-header">
-            <span class="intensity-title">INTENSITÉ</span>
-            <span class="intensity-value">{{ closest.product.metafields.custom.intensite.value }}/10</span>
-          </div>
-          
-          <div class="intensity-bar-wrapper">
-            <div class="intensity-bar">
-              <div class="intensity-fill" style="--intensity-width: {{ closest.product.metafields.custom.intensite.value | times: 10 }}%"></div>
-            </div>
-          </div>
+    {%- if show_intensity -%}
+      <div class="product__callouts-item fs-body-75">
+        <span class="icon icon-new product__callouts-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2v20M12 2l-3 3m3-3l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 8h12M6 12h12M6 16h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div class="product__callouts-item-text rte">
+          <p><strong>Intensité:</strong> {{ closest.product.metafields.custom.intensite.value }}/10</p>
+        </div>
+      </div>
+    {%- endif -%}
 
-          <div class="intensity-dots">
-            {% for i in (1..10) %}
-              <span class="dot {% if i <= closest.product.metafields.custom.intensite.value %}dot-filled{% endif %}"></span>
-            {% endfor %}
+    {%- if show_notes -%}
+      {% for note in notes %}
+        {% assign note_trimmed = note | strip %}
+        <div class="product__callouts-item fs-body-75">
+          <span class="icon icon-new product__callouts-item-icon">
+            {% case note_trimmed %}
+              {% when 'Rose' %}
+                {% render 'icon-note-rose' %}
+              {% when 'Musc' %}
+                {% render 'icon-note-musc' %}
+              {% when 'Ambre' %}
+                {% render 'icon-note-ambre' %}
+              {% when 'Vanille' %}
+                {% render 'icon-note-vanille' %}
+              {% when 'Bois' %}
+                {% render 'icon-note-bois' %}
+              {% when 'Agrumes' %}
+                {% render 'icon-note-agrumes' %}
+              {% when 'Floral' %}
+                {% render 'icon-note-floral' %}
+              {% when 'Épicé' %}
+                {% render 'icon-note-epice' %}
+              {% when 'Océan' %}
+                {% render 'icon-note-ocean' %}
+              {% else %}
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            {% endcase %}
+          </span>
+          <div class="product__callouts-item-text rte">
+            <p>{{ note_trimmed }}</p>
           </div>
         </div>
-      {%- endif -%}
-
-      {%- if show_notes -%}
-        <div class="popup-notes-section">
-          <div class="notes-header">
-            <h3 class="notes-title">Notes Olfactives</h3>
-            <div class="notes-divider"></div>
-          </div>
-          
-          <div class="notes-grid">
-            {% for note in notes %}
-              {% assign note_trimmed = note | strip %}
-              <div class="note-item">
-                <div class="note-icon">
-                  {% case note_trimmed %}
-                    {% when 'Rose' %}
-                      {% render 'icon-note-rose' %}
-                    {% when 'Musc' %}
-                      {% render 'icon-note-musc' %}
-                    {% when 'Ambre' %}
-                      {% render 'icon-note-ambre' %}
-                    {% when 'Vanille' %}
-                      {% render 'icon-note-vanille' %}
-                    {% when 'Bois' %}
-                      {% render 'icon-note-bois' %}
-                    {% when 'Agrumes' %}
-                      {% render 'icon-note-agrumes' %}
-                    {% when 'Floral' %}
-                      {% render 'icon-note-floral' %}
-                    {% when 'Épicé' %}
-                      {% render 'icon-note-epice' %}
-                    {% when 'Océan' %}
-                      {% render 'icon-note-ocean' %}
-                  {% endcase %}
-                </div>
-                <span class="note-label">{{ note_trimmed }}</span>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-      {%- endif -%}
-
-      {%- if has_page_content -%}
-        <div class="popup-page-content rte">
-          {{ popup_page.content }}
-        </div>
-      {%- endif -%}
-    </div>
-  </dialog>
-</dialog-component>
+      {% endfor %}
+    {%- endif -%}
+    
+  </div>
+</div>
 
 {% stylesheet %}
-  .product-information-popup {
-    display: block;
+  .product-info-callouts {
+    margin: var(--margin-lg) 0;
   }
 
-  .product-information-popup__trigger {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--gap-xs);
-    padding: var(--padding-xs) 0;
-    background: none;
-    border: none;
-    color: rgb(var(--color-foreground-rgb));
-    font-size: var(--font-paragraph-size);
-    line-height: 1.4;
-    cursor: pointer;
-    text-align: left;
-    transition: all 0.2s ease;
-    opacity: 0.85;
-  }
-
-  .product-information-popup__trigger:hover {
-    opacity: 1;
-  }
-
-  .product-information-popup__trigger:focus-visible {
-    outline: 2px solid rgb(var(--color-foreground-rgb));
-    outline-offset: 2px;
-    border-radius: var(--radius-sm);
-  }
-
-  .product-information-popup__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-  }
-
-  .product-information-popup__icon svg {
+  /* Le thème gère déjà product__callouts-items et product__callouts-item */
+  /* On ajoute juste un peu de style pour nos icônes personnalisées */
+  
+  .product__callouts-item-icon svg {
     width: 100%;
     height: 100%;
-    fill: currentColor;
-  }
-
-  .product-information-popup__custom-icon {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .product-information-popup__text {
-    font-weight: 500;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .product-information-popup__external-icon {
-    display: flex;
-    align-items: center;
-    width: 14px;
-    height: 14px;
-    opacity: 0.6;
-  }
-
-  .product-information-popup__external-icon svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  .product-information-popup__modal {
-    box-shadow: var(--shadow-popover);
-    border: var(--style-border-popover);
-    border-radius: var(--style-border-radius-popover);
-    background-color: var(--color-background);
-    padding: 0;
-    max-width: 600px;
-    width: 90vw;
-    max-height: 80vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .product-information-popup__modal[open] {
-    animation: modalSlideInTop var(--animation-speed) var(--animation-easing) forwards;
-  }
-
-  .product-information-popup__modal.dialog-closing {
-    animation: modalSlideOutTop var(--animation-speed) var(--animation-easing) forwards;
-  }
-
-  .product-information-popup__modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--gap-lg);
-    padding: var(--padding-xl) var(--padding-xl) var(--padding-md);
-    border-bottom: 1px solid rgb(var(--color-border-rgb) / 0.1);
-    flex-shrink: 0;
-  }
-
-  .product-information-popup__modal-title {
-    margin: 0;
-    font-weight: 600;
-    flex: 1;
-  }
-
-  .product-information-popup__close {
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
-    flex-shrink: 0;
-  }
-
-  .product-information-popup__close:hover {
-    opacity: 1;
-  }
-
-  .product-information-popup__close svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .product-information-popup__modal-content {
-    padding: var(--padding-xl);
-    overflow-y: auto;
-    flex: 1;
-  }
-
-  /* Intensity Section Styles */
-  .popup-intensity-section {
-    margin-bottom: var(--margin-2xl);
-    padding-bottom: var(--padding-xl);
-    border-bottom: 1px solid rgb(var(--color-border-rgb) / 0.15);
-  }
-
-  .intensity-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1px;
-  }
-
-  .intensity-title {
-    color: rgb(var(--color-foreground-rgb));
-  }
-
-  .intensity-value {
-    color: rgb(var(--color-foreground-rgb) / 0.7);
-    font-weight: 500;
-  }
-
-  .intensity-bar-wrapper {
-    margin-bottom: 12px;
-    overflow: hidden;
-    border-radius: 4px;
-  }
-
-  .intensity-bar {
-    width: 100%;
-    height: 8px;
-    background-color: rgb(var(--color-border-rgb) / 0.2);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .intensity-fill {
-    height: 100%;
-    width: 0%;
-    background: rgb(var(--color-foreground-rgb));
-    border-radius: 4px;
-    animation: growBar 1s ease-out forwards;
-    animation-delay: 0.3s;
-  }
-
-  @keyframes growBar {
-    from {
-      width: 0%;
-    }
-    to {
-      width: var(--intensity-width);
-    }
-  }
-
-  .intensity-dots {
-    display: flex;
-    gap: 6px;
-    justify-content: space-between;
-  }
-
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: rgb(var(--color-border-rgb) / 0.3);
-    transition: background-color 0.3s ease;
-    opacity: 0;
-    animation: fadeDot 0.5s ease-out forwards;
-  }
-
-  .dot:nth-child(1) { animation-delay: 0.4s; }
-  .dot:nth-child(2) { animation-delay: 0.45s; }
-  .dot:nth-child(3) { animation-delay: 0.5s; }
-  .dot:nth-child(4) { animation-delay: 0.55s; }
-  .dot:nth-child(5) { animation-delay: 0.6s; }
-  .dot:nth-child(6) { animation-delay: 0.65s; }
-  .dot:nth-child(7) { animation-delay: 0.7s; }
-  .dot:nth-child(8) { animation-delay: 0.75s; }
-  .dot:nth-child(9) { animation-delay: 0.8s; }
-  .dot:nth-child(10) { animation-delay: 0.85s; }
-
-  @keyframes fadeDot {
-    from {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  .dot-filled {
-    background-color: rgb(var(--color-foreground-rgb));
-  }
-
-  /* Notes Section Styles */
-  .popup-notes-section {
-    margin-bottom: var(--margin-2xl);
-  }
-
-  .notes-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 24px;
-  }
-
-  .notes-title {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: rgb(var(--color-foreground-rgb));
-    margin: 0;
-    white-space: nowrap;
-  }
-
-  .notes-divider {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, rgb(var(--color-foreground-rgb) / 0.3), transparent);
-  }
-
-  .notes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
-    gap: 24px;
-    padding: 0 10px;
-  }
-
-  .note-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    opacity: 0;
-    animation: notesFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    transition: all 0.3s ease;
-  }
-
-  .note-item:nth-child(1) { animation-delay: 0.1s; }
-  .note-item:nth-child(2) { animation-delay: 0.15s; }
-  .note-item:nth-child(3) { animation-delay: 0.2s; }
-  .note-item:nth-child(4) { animation-delay: 0.25s; }
-  .note-item:nth-child(5) { animation-delay: 0.3s; }
-  .note-item:nth-child(6) { animation-delay: 0.35s; }
-  .note-item:nth-child(7) { animation-delay: 0.4s; }
-  .note-item:nth-child(8) { animation-delay: 0.45s; }
-
-  @keyframes notesFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(15px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .note-icon {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 12px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  .note-icon::before {
-    content: '';
-    position: absolute;
-    inset: -8px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgb(var(--color-foreground-rgb) / 0.05) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .note-item:hover .note-icon::before {
-    opacity: 1;
-  }
-
-  .note-icon svg {
-    width: 100%;
-    height: 100%;
-    transition: all 0.3s ease;
   }
 
   .icon-elegant {
-    fill: rgb(var(--color-foreground-rgb));
-    stroke: rgb(var(--color-foreground-rgb));
-  }
-
-  .note-item:hover .note-icon {
-    transform: scale(1.1) translateY(-2px);
-  }
-
-  .note-label {
-    font-size: 12px;
-    font-weight: 500;
-    color: rgb(var(--color-foreground-rgb));
-    letter-spacing: 0.5px;
-    line-height: 1.4;
-    transition: all 0.3s ease;
-    opacity: 0.85;
-  }
-
-  .note-item:hover .note-label {
-    font-weight: 600;
-    opacity: 1;
-  }
-
-  /* Page Content Styles */
-  .popup-page-content {
-    padding-top: var(--padding-lg);
-    border-top: 1px solid rgb(var(--color-border-rgb) / 0.15);
-  }
-
-  /* Responsive styles */
-  @media screen and (max-width: 749px) {
-    .product-information-popup__modal {
-      max-width: 95vw;
-      max-height: 90vh;
-    }
-
-    .product-information-popup__modal-header {
-      padding: var(--padding-lg) var(--padding-md) var(--padding-sm);
-    }
-
-    .product-information-popup__modal-content {
-      padding: var(--padding-md);
-    }
-
-    .product-information-popup__modal-title {
-      font-size: 1.125rem;
-    }
-
-    .intensity-header {
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
-
-    .intensity-bar {
-      height: 6px;
-    }
-
-    .dot {
-      width: 5px;
-      height: 5px;
-    }
-
-    .notes-header {
-      margin-bottom: 18px;
-    }
-
-    .notes-title {
-      font-size: 10px;
-      letter-spacing: 2px;
-    }
-
-    .notes-grid {
-      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-      gap: 18px;
-      padding: 0;
-    }
-
-    .note-icon {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 10px;
-    }
-
-    .note-label {
-      font-size: 11px;
-    }
-  }
-
-  /* Animation keyframes */
-  @keyframes modalSlideInTop {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes modalSlideOutTop {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
+    fill: currentColor;
+    stroke: currentColor;
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "Information popup",
+  "name": "Intensité & Notes",
   "tag": null,
   "settings": [
     {
-      "type": "select",
-      "id": "popup_icon",
-      "label": "Icône",
-      "options": [
-        {
-          "value": "none",
-          "label": "Aucune"
-        },
-        {
-          "value": "leaf",
-          "label": "Feuille"
-        },
-        {
-          "value": "heart",
-          "label": "Coeur"
-        },
-        {
-          "value": "bottle",
-          "label": "Bouteille"
-        },
-        {
-          "value": "ruler",
-          "label": "Règle"
-        },
-        {
-          "value": "question-mark",
-          "label": "Point d'interrogation"
-        },
-        {
-          "value": "sunflower",
-          "label": "Tournesol"
-        },
-        {
-          "value": "cotton",
-          "label": "Coton"
-        }
-      ],
-      "default": "leaf"
+      "type": "header",
+      "content": "Affichage"
     },
     {
-      "type": "image_picker",
-      "id": "custom_icon_image",
-      "label": "Image d'icône personnalisée"
+      "type": "paragraph",
+      "content": "Ce bloc affiche automatiquement l'intensité et les notes olfactives du produit."
     },
     {
-      "type": "text",
-      "id": "popup_text",
-      "label": "Texte du bouton",
-      "default": "Voir les détails"
+      "type": "checkbox",
+      "id": "add_box",
+      "label": "Ajouter une bordure",
+      "default": true
     },
     {
-      "type": "page",
-      "id": "popup_page",
-      "label": "Page (optionnel)",
-      "info": "Sélectionnez une page pour ajouter du contenu supplémentaire en plus de l'intensité et des notes"
+      "type": "checkbox",
+      "id": "add_dividers",
+      "label": "Ajouter des séparateurs",
+      "default": true
     }
   ],
   "presets": [
     {
-      "name": "Information popup",
+      "name": "Intensité & Notes",
       "category": "Produit"
     }
   ]

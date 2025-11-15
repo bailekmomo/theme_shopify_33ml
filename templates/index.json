@@ -1278,7 +1278,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2>Customer care</h2>",
+                "text": "<h2>Companion de voyage</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
@@ -1304,7 +1304,7 @@
               "type": "text",
               "name": "t:names.description",
               "settings": {
-                "text": "<p>We're always on your side: keeping our loyal customers happy is our top priority and number one goal.</p>",
+                "text": "<p>Emmenez votre 33ml partout</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",

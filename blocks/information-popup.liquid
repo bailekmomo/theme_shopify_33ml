@@ -596,3 +596,69 @@
   }
 {% endstylesheet %}
 
+{% schema %}
+{
+  "name": "Information popup",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "select",
+      "id": "popup_icon",
+      "label": "Icône",
+      "options": [
+        {
+          "value": "none",
+          "label": "Aucune"
+        },
+        {
+          "value": "leaf",
+          "label": "Feuille"
+        },
+        {
+          "value": "heart",
+          "label": "Coeur"
+        },
+        {
+          "value": "bottle",
+          "label": "Bouteille"
+        },
+        {
+          "value": "ruler",
+          "label": "Règle"
+        },
+        {
+          "value": "question-mark",
+          "label": "Point d'interrogation"
+        },
+        {
+          "value": "sunflower",
+          "label": "Tournesol"
+        },
+        {
+          "value": "cotton",
+          "label": "Coton"
+        }
+      ],
+      "default": "leaf"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_icon_image",
+      "label": "Image d'icône personnalisée"
+    },
+    {
+      "type": "text",
+      "id": "popup_text",
+      "label": "Texte du bouton",
+      "default": "Voir les détails"
+    },
+    {
+      "type": "page",
+      "id": "popup_page",
+      "label": "Page (optionnel)",
+      "info": "Sélectionnez une page pour ajouter du contenu supplémentaire en plus de l'intensité et des notes"
+    }
+  ]
+}
+{% endschema %}
+

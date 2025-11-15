@@ -129,8 +129,9 @@
         "group_3cB4GW"
       ],
       "settings": {
-        "media_type_1": "image",
+        "media_type_1": "video",
         "image_1": "shopify://shop_images/Gemini_Generated_Image_xgxqmexgxqmexgxq.png",
+        "video_1": "shopify://files/videos/a5a3993090fc4bfab5a8be8fa824f5c0.mp4",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,

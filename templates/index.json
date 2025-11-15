@@ -1243,7 +1243,7 @@
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
             "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
+            "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "flex-start",
             "gap": 8,
             "width": "fill",
@@ -1325,11 +1325,24 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "icon_mExkwz": {
+              "type": "icon",
+              "name": "t:names.icon",
+              "settings": {
+                "icon": "price_tag",
+                "image_upload": "shopify://shop_images/Capture_d_ecran_2025-11-15_a_01.25.24.png",
+                "width": 68,
+                "link": "",
+                "open_in_new_tab": false
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "text_y6Rg6M",
-            "text_wpnxb6"
+            "text_wpnxb6",
+            "icon_mExkwz"
           ]
         }
       },

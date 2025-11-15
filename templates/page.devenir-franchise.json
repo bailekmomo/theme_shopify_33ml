@@ -56,8 +56,9 @@
         "image_4BbmCT": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Capture_d_ecran_2025-08-30_a_17.41.37.png",
             "link": "",
-            "image_ratio": "square",
+            "image_ratio": "adapt",
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -218,10 +219,100 @@
         "padding-block-start": 40,
         "padding-block-end": 40
       }
+    },
+    "section_hTYBjh": {
+      "type": "section",
+      "blocks": {
+        "text_h3RKDU": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<p>Pourquoi devenir franchisé avec nous ?</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_WXeTLd": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<h3><strong>1. Un concept clé en main</strong></h3><p>Nous mettons à votre disposition un modèle opérationnel simple, rentable et déjà optimisé.<br/><br/>Ouvrir votre franchise, c’est bénéficier d’un savoir-faire solide et immédiatement applicable.</p><h3><strong>2. Une marque forte et en croissance</strong></h3><p>Notre univers séduit un public large et fidèle. En rejoignant notre réseau, vous profitez d’une identité moderne, d’une notoriété croissante et d’un marché en plein essor.</p><h3><strong>3. Un accompagnement à chaque phase</strong></h3><p>De l’étude du projet jusqu’à l’ouverture, nous vous guidons pas à pas :</p><ul><li><br/>Aide dans la recherche d’emplacement<br/></li><li><br/>Formation initiale complète<br/></li><li><br/>Assistance marketing<br/></li><li><br/>Suivi quotidien après l’ouverture<br/><br/>Vous n’êtes jamais seul : nous avançons ensemble.<br/></li></ul><h3><strong>4. Une rentabilité attractive</strong></h3><p>Notre modèle économique a été conçu pour permettre un retour sur investissement rapide.<br/><br/>Faibles coûts d’entrée, marges maîtrisées, approvisionnement sécurisé : tout est pensé pour favoriser votre réussite.</p>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_h3RKDU",
+        "text_WXeTLd"
+      ],
+      "name": "t:names.rich_text_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 25,
+        "section_width": "page-width",
+        "section_height": "small",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
     }
   },
   "order": [
     "main",
-    "section_KG38M4"
+    "section_KG38M4",
+    "section_hTYBjh"
   ]
 }

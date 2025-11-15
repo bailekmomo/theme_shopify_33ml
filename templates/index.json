@@ -1940,7 +1940,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2>Our signature product</h2>",
+                "text": "<h2>Une signature unique</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1965,7 +1965,7 @@
             "text_YtgcFL": {
               "type": "text",
               "settings": {
-                "text": "<p>Made with care and unconditionally loved by our customers, this signature bestseller exceeds all expectations.</p>",
+                "text": "<p>Un parfum ne se porte pas : il se révèle. Il se personnalise. Il devient une extension de soi.<br/><br/>Votre signature unique, c’est ce sillage subtil qui raconte votre présence avant même que vous ne parliez, cette empreinte olfactive que personne d’autre ne possède.</p><p>Dans un monde où tout se ressemble, affirmer sa singularité est un art. Nos créations sont pensées pour vous offrir cette liberté : celle de choisir une fragrance qui reflète votre caractère, vos émotions, vos instants. Un parfum qui vous accompagne, vous distingue, et laisse une trace délicate mais inoubliable.</p><p></p>",
                 "width": "fit-content",
                 "max_width": "narrow",
                 "alignment": "left",

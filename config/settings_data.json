@@ -65,7 +65,7 @@
           "primary_button_background": "#cebeab",
           "primary_button_text": "#1a1a1a",
           "primary_button_border": "#a42325",
-          "primary_button_hover_background": "#1a1a1a",
+          "primary_button_hover_background": "#ffffff",
           "primary_button_hover_text": "#ffffff",
           "primary_button_hover_border": "#000000",
           "secondary_button_background": "#0000000f",

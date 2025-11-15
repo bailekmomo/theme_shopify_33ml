@@ -768,7 +768,7 @@
           "name": "t:names.email_signup",
           "settings": {
             "width": "fill",
-            "custom_width": 70,
+            "custom_width": 100,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "heading": "Se tenir informé",

@@ -165,6 +165,7 @@
       "blocks": {
         "media": {
           "type": "_media-without-appearance",
+          "disabled": true,
           "static": true,
           "settings": {
             "media_type": "image",

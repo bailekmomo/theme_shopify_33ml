@@ -63,7 +63,7 @@
           "border": "#e6e6e6",
           "shadow": "#000000",
           "primary_button_background": "#cebeab",
-          "primary_button_text": "#000000",
+          "primary_button_text": "#1a1a1a",
           "primary_button_border": "#a42325",
           "primary_button_hover_background": "#1a1a1a",
           "primary_button_hover_text": "#ffffff",
